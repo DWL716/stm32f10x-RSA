@@ -202,6 +202,15 @@ int rsa_encrypt(unsigned char *plaintext, unsigned char *ciphertext, int msg_len
     mbedtls_ctr_drbg_init(&ctr_drbg); // 初始化ctr drbg结构体,用于随机数的生成
     mbedtls_entropy_init(&entropy);   // 初始化熵源
 
+    /**
+     * 使用mbedTLS库为随机数生成器添加一个熵源。
+     * mbedtls_entropy_add_source 是 mbedTLS 库的一个函数，它允许你添加自定义的熵源。熵源是用于提供随机数据，这些随机数据将用于初始化随机数生成器。
+     * &entropy 是 mbedtls_entropy_context 类型的一个实例的指针，它保存了熵源的状态。
+     * entropy_source 是一个函数指针，这个函数会被 mbedTLS 库用来从你的熵源获取数据。这个函数应该符合特定的原型，具体可以参考 mbedTLS 的文档。
+     * NULL 是一个可选的指针，可以传递给你的熵源函数。一般情况下，除非你的熵源函数需要一些额外的上下文信息，否则你可以将它设置为 NULL。
+     * MBEDTLS_ENTROPY_MAX_GATHER 是熵源函数在单次调用时应该填充的最大字节数。
+     * MBEDTLS_ENTROPY_SOURCE_STRONG 是一个标志，表明这个熵源是强熵源，也就是说，它提供的随机数据可以直接用于生成密钥或者其他需要高质量随机性的应用中。
+     */
     mbedtls_entropy_add_source(&entropy, entropy_source, NULL,
                                MBEDTLS_ENTROPY_MAX_GATHER,
                                MBEDTLS_ENTROPY_SOURCE_STRONG);
@@ -519,17 +528,19 @@ void RSA_TEST()
     int msg_length = strlen(msg) + 1;
 
     uint32_t cnt = 0;
-    for (uint16_t i = 0; i < 100000; i++)
-    {
-        // 加密
-        rsa_encrypt(plaintext, ciphertext, strlen(msg) + 1, sizeof(ciphertext));
-        // 解密
-        rsa_decrypt(ciphertext, plaintext, sizeof(plaintext));
-        //		HAL_Delay(1000);
-        // 签名测试
-        mbedtls_rsa_sign_test();
-        mbedtls_printf("cnt = %d\n", cnt++);
-    }
+    // 循环10w次测试堆栈是否溢出
+    // for (uint16_t i = 0; i < 100000; i++)
+    // {
+    // 加密
+    rsa_encrypt(plaintext, ciphertext, strlen(msg) + 1, sizeof(ciphertext));
+    mbedtls_printf("----------------:%d=========%d\n", ciphertext, strlen(ciphertext));
+    // 解密
+    rsa_decrypt(ciphertext, plaintext, sizeof(plaintext));
+    //		HAL_Delay(1000);
+    // 签名测试
+    mbedtls_rsa_sign_test();
+    mbedtls_printf("cnt = %d\n", cnt++);
+    //  }
 
     //	mbedtls_rsa_sign_test();
 }
