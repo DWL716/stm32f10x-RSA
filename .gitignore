@@ -1,0 +1,10 @@
+# Logs
+logs
+*.log
+.vscode
+**/Objects/*
+**/Output/*
+!**/Objects/BH-STM32.sct
+
+.vscode/*
+!.vscode/extensions.json
