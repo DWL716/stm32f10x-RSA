@@ -370,8 +370,21 @@ int rsa_decrypt(unsigned char *ciphertext, unsigned char *plaintext, uint16_t le
 
     // 计算 SHA1 摘要
     unsigned char hash[20];
+    // 在你给的这段代码中，mbedtls_sha1() 函数在对 aes_data 字符串进行哈希计算。计算后的哈希值储存在 hash 数组中。
     mbedtls_sha1((const uint8_t *)aes_data, strlen(aes_data), hash);
 
+    /**
+     * mbedtls_rsa_pkcs1_sign() 是mbedTLS库中的一个函数，用于以PKCS＃1 v1.5格式创建一个RSA签名。
+     * ctx 是一个指向初始化过的 mbedtls_rsa_context 的指针。这个上下文需要包含一个已经加载了私钥的RSA上下文。
+     * f_rng 是随机数生成器函数的指针。
+     * p_rng 是传递给 f_rng 的可选上下文。
+     * mode 定义了函数的工作模式，可以是 MBEDTLS_RSA_PRIVATE(私钥)或 MBEDTLS_RSA_PUBLIC(公钥)。
+     * md_alg 需要使用的哈希算法，这应该和要签名的消息对应。
+     * hashlen 哈希的长度，单位是字节。
+     * hash 是指向含有待签名的哈希值的指针。
+     * sig 是一个指向输出缓冲区的指针，会存储签名结果。
+     * === 返回值为0表示操作成功完成，非0则表示产生了错误
+     */
     ret = mbedtls_rsa_pkcs1_sign(&rsa, NULL, NULL, MBEDTLS_RSA_PRIVATE, MBEDTLS_MD_SHA1, strlen(aes_data), hash, output_buf);
     if (ret != 0)
     {
@@ -399,6 +412,7 @@ int rsa_decrypt(unsigned char *ciphertext, unsigned char *plaintext, uint16_t le
     /* 5. verify sign*/
     mbedtls_printf("\n  . RSA pkcs1 verify...");
 
+    // 使用公钥验证一个 PKCS＃1 v1.5 格式的签名。
     ret = mbedtls_rsa_pkcs1_verify(&rsa, NULL, NULL, MBEDTLS_RSA_PUBLIC, MBEDTLS_MD_SHA1, strlen(aes_data), hash, output_buf);
 
     if (ret != 0)
