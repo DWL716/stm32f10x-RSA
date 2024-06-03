@@ -262,12 +262,13 @@ int rsa_decrypt(unsigned char *ciphertext, unsigned char *plaintext, uint16_t le
     long size;
     size_t n;
     unsigned char *priv_key = NULL;
-    mbedtls_pk_context ctx_pk;
+    mbedtls_pk_context ctx_pk;        // 私钥
+    mbedtls_pk_context ctx_pk_public; // 公钥
     /*******************************/
     int ret = 1;
     int c;
     size_t i;
-    mbedtls_rsa_context rsa;
+    mbedtls_rsa_context rsa, rsa_plk;
     mbedtls_mpi N, P, Q, D, E, DP, DQ, QP; // 定义大数
     mbedtls_entropy_context entropy;
     mbedtls_ctr_drbg_context ctr_drbg;
@@ -277,13 +278,20 @@ int rsa_decrypt(unsigned char *ciphertext, unsigned char *plaintext, uint16_t le
     // memset(result, 0, sizeof(result));
     /*********************************/
     memset(plaintext, 0, len);
+    // 初始化pk
     mbedtls_pk_init(&ctx_pk);
+    mbedtls_pk_init(&ctx_pk_public);
 
     //    int length = strlen(my_private_key);
     //    priv_key = (unsigned char *)(malloc(length+1));
 
     //    strcpy((char*)priv_key, my_private_key);
     // if( ( ret = mbedtls_pk_parse_public_key( &pk, pub_key, length+1) ) != 0 )
+    /**
+     * mbedtls_pk_parse_key() 这个函数被用来解析 PEM 或 DER 格式的私钥，而私钥通常也包含公钥的信息。解析后的私钥信息将被存储在一个公钥（pk）上下文中。通过这个上下文，你可以保存这个私钥信息，同时也可以获取到对应的公钥信息。
+     * 在 mbedTLS 库中，公钥和私钥都存在于同一个结构体中，例如对于 RSA 密钥，该结构体为 mbedtls_rsa_context。这个结构体包含了公钥和私钥的所有部分。
+     * 这就意味着，如果你使用 mbedtls_pk_parse_key() 解析私钥并获得一个 mbedtls_pk_context 结构体，你可以使用 mbedtls_pk_get_rsa() 函数获得一个指向 mbedtls_rsa_context 的指针，然后从这个 mbedtls_rsa_context 结构体中获取对应的公钥的所有部分。例如，N 成员代表 RSA 的模数，而 E 成员则代表公钥指数。
+     */
     ret = mbedtls_pk_parse_key(&ctx_pk, (unsigned char *)my_private_key, strlen(my_private_key) + 1, NULL, 0);
     if (0 != ret)
     {
@@ -292,6 +300,16 @@ int rsa_decrypt(unsigned char *ciphertext, unsigned char *plaintext, uint16_t le
     else
     {
         mbedtls_printf("\n  . Import private key successfully");
+    }
+
+    ret = mbedtls_pk_parse_public_key(&ctx_pk_public, (unsigned char *)my_public_key, strlen(my_public_key) + 1);
+    if (0 != ret)
+    {
+        mbedtls_printf("\n  . Can't import public key, %d", ret);
+    }
+    else
+    {
+        mbedtls_printf("\n  . Import public key successfully");
     }
 
     //    free(priv_key);
@@ -327,6 +345,7 @@ int rsa_decrypt(unsigned char *ciphertext, unsigned char *plaintext, uint16_t le
 
     /*导入pem内的私钥*/
     rsa = *(mbedtls_rsa_context *)ctx_pk.pk_ctx;
+    rsa_plk = *(mbedtls_rsa_context *)ctx_pk_public.pk_ctx;
 
     if ((ret = mbedtls_rsa_complete(&rsa)) != 0)
     {
@@ -352,6 +371,7 @@ int rsa_decrypt(unsigned char *ciphertext, unsigned char *plaintext, uint16_t le
     }
     mbedtls_printf("ok!!!!!!!!!!\n");
 
+    // 解密
     ret = mbedtls_rsa_pkcs1_decrypt(&rsa, mbedtls_ctr_drbg_random, &ctr_drbg, MBEDTLS_RSA_PRIVATE, &i, ciphertext, plaintext, 512);
     if (ret != 0)
     {
@@ -365,6 +385,7 @@ int rsa_decrypt(unsigned char *ciphertext, unsigned char *plaintext, uint16_t le
     /* shwo RSA keypair */
     dump_rsa_key(&rsa);
 
+    // 使用 SHA1 算法通过私钥签名、再通过公钥验签，验证签名是否正确
     /* 4. sign */
     mbedtls_printf("\n  . RSA pkcs1 sign...");
 
@@ -412,8 +433,8 @@ int rsa_decrypt(unsigned char *ciphertext, unsigned char *plaintext, uint16_t le
     /* 5. verify sign*/
     mbedtls_printf("\n  . RSA pkcs1 verify...");
 
-    // 使用公钥验证一个 PKCS＃1 v1.5 格式的签名。
-    ret = mbedtls_rsa_pkcs1_verify(&rsa, NULL, NULL, MBEDTLS_RSA_PUBLIC, MBEDTLS_MD_SHA1, strlen(aes_data), hash, output_buf);
+    // 使用公钥验签，检验一个 PKCS＃1 v1.5 格式的签名。
+    ret = mbedtls_rsa_pkcs1_verify(&rsa_plk, NULL, NULL, MBEDTLS_RSA_PUBLIC, MBEDTLS_MD_SHA1, strlen(aes_data), hash, output_buf);
 
     if (ret != 0)
     {
