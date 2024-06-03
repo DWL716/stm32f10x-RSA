@@ -447,6 +447,7 @@ exit:
     mbedtls_ctr_drbg_free(&ctr_drbg);
     mbedtls_entropy_free(&entropy);
     mbedtls_rsa_free(&rsa);
+    mbedtls_rsa_free(&rsa_plk);
     mbedtls_mpi_free(&N);
     mbedtls_mpi_free(&P);
     mbedtls_mpi_free(&Q);
@@ -456,6 +457,7 @@ exit:
     mbedtls_mpi_free(&DQ);
     mbedtls_mpi_free(&QP);
     mbedtls_pk_free(&ctx_pk);
+    mbedtls_pk_free(&ctx_pk_public);
 
     fflush(stdout);
     return 0;
