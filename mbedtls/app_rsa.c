@@ -102,6 +102,22 @@ const char *my_private_key = "-----BEGIN RSA PRIVATE KEY-----\n"
                              "fxuQJFOXIijsTyL0r3kIhYmYofaYuJH7a79JU8vaWUzrm1nJK2luj4HwFvcGTHK7"
                              "affCq8rlj00Ie8/jjoom5MHOrqWci2qzsnCgCVFrGKQi1IbCVFA3\n"
                              "-----END RSA PRIVATE KEY-----";
+#elif RSA512_test == 3
+const char *my_public_key = "-----BEGIN PUBLIC KEY-----\n"
+                            "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMdk2PAQ/WTago9+xAmuTvuyfA0DhXiK"
+                            "nwCQ/QL1oIgG3gMBiftzpLlZCoVED91c7I3cxX0ApYfmA8IdUeYuVmUCAwEAAQ=="
+                            "-----END PUBLIC KEY-----";
+
+const char *my_private_key = "-----BEGIN RSA PRIVATE KEY-----\n"
+                             "MIIBOwIBAAJBAMdk2PAQ/WTago9+xAmuTvuyfA0DhXiKnwCQ/QL1oIgG3gMBiftz"
+                             "pLlZCoVED91c7I3cxX0ApYfmA8IdUeYuVmUCAwEAAQJAAsU6BhSNBMNMIu9wDLIN"
+                             "Ow425DJl6W/ETPcha31bXTse6jMMyiRSsrc1N9cfIt8Am77Gakh0JQ5ynUeGp1Ta"
+                             "8QIhAOg9ogVxS/D99vb0bE/mohlawWG8gapq3TkScx1OivbxAiEA28r1fBkzEBk3"
+                             "UK0qaUIPMhukKlAl1V4jhaxScFPVnrUCIQCWOfAJZz1BeXZ8TqWVldG7Zup6p26U"
+                             "5yWM2nNePMVFcQIhAKrUF3Kpv1de0fBhdtoyns7qTvEYNB+fOGq34acucZUVAiB+"
+                             "NzipYV+G8vodPHXpr7DfY2P91RXDzMF0h8SPku0Ffw=="
+                             "-----END RSA PRIVATE KEY-----";
+
 #endif
 
 const char aes_data[] = "{\"AESkey\":\"DPXlLYPp0/OSHQD5a1Qpew==\",\"CTEI\":\"183811950918001\"}";
@@ -615,4 +631,45 @@ void RSA_TEST1()
         mbedtls_printf("%x", rst2[i]);
     }
     mbedtls_printf("\nok!!!!!!!!!!\n");
+}
+
+// 生成 PEM 格式的公钥和私钥。 参考了https://github.com/njriasan/sgx-ra-tls/blob/f46e719dc102901ae29bac55cf6b930d03318317/mbedtls-ra-attester.c#L261
+int RSA_GET_PEM(void)
+{
+    int ret;
+    mbedtls_pk_context key;
+    mbedtls_ctr_drbg_context ctr_drbg;
+    mbedtls_pk_init(&key);
+    mbedtls_ctr_drbg_init(&ctr_drbg);
+
+    /**
+     * padding 是你想要使用的填充模式。在你的例子中，MBEDTLS_RSA_PKCS_V15 表示你想用 PKCS#1 v1.5 标准进行填充。
+     * hash_id 是你在 RSA 使用的填充模式需要一个 hash 算法时，指定使用的 hash 算法的标识符。在你的例子中，0 表示不使用 hash。
+     */
+    mbedtls_rsa_init((&key)->pk_ctx, MBEDTLS_RSA_PKCS_V15, 0);
+    // 用途是设置一个公钥（PK）上下文的类型。具体来说，它会重置 PK 上下文并将其关联到给定类型的密钥。
+    mbedtls_pk_setup(&key, mbedtls_pk_info_from_type(MBEDTLS_PK_RSA));
+
+    // 生成密钥
+    ret = mbedtls_rsa_gen_key((&key)->pk_ctx, mbedtls_ctr_drbg_random, &ctr_drbg, 512, 65537);
+    if (ret != 0)
+    {
+        mbedtls_printf(" failed\n  ! mbedtls_rsa_gen_key returned %d(-0x%04x)\n", ret, -ret);
+        goto exit;
+    }
+    mbedtls_printf(" ok\n");
+    char buf[512]; // buffer for the PEM data
+    size_t len;
+
+    ret = mbedtls_pk_write_key_pem(&key, buf, sizeof(buf));
+    mbedtls_printf("############## write private key : %s\n", buf);
+
+    memset(buf, 0, sizeof(buf));
+    ret = mbedtls_pk_write_pubkey_pem(&key, buf, sizeof(buf));
+    mbedtls_printf("############## write public key : %s\n", buf);
+
+exit:
+    mbedtls_ctr_drbg_free(&ctr_drbg);
+    mbedtls_pk_free(&key);
+    return ret;
 }

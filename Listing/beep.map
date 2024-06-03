@@ -104,6 +104,19 @@ Section Cross References
     bsp_usart.o(i.USART1_IRQHandler) refers to bsp_usart.o(.data) for .data
     bsp_usart.o(i.USART1_IRQHandler) refers to bsp_usart.o(.bss) for .bss
     bsp_usart.o(i.fputc) refers to bsp_usart.o(i.Serial_SendByte) for Serial_SendByte
+    app_rsa.o(i.RSA_GET_PEM) refers to pk.o(i.mbedtls_pk_init) for mbedtls_pk_init
+    app_rsa.o(i.RSA_GET_PEM) refers to ctr_drbg.o(i.mbedtls_ctr_drbg_init) for mbedtls_ctr_drbg_init
+    app_rsa.o(i.RSA_GET_PEM) refers to rsa.o(i.mbedtls_rsa_init) for mbedtls_rsa_init
+    app_rsa.o(i.RSA_GET_PEM) refers to pk.o(i.mbedtls_pk_info_from_type) for mbedtls_pk_info_from_type
+    app_rsa.o(i.RSA_GET_PEM) refers to pk.o(i.mbedtls_pk_setup) for mbedtls_pk_setup
+    app_rsa.o(i.RSA_GET_PEM) refers to rsa.o(i.mbedtls_rsa_gen_key) for mbedtls_rsa_gen_key
+    app_rsa.o(i.RSA_GET_PEM) refers to printfa.o(i.__0printf) for __2printf
+    app_rsa.o(i.RSA_GET_PEM) refers to pkwrite.o(i.mbedtls_pk_write_key_pem) for mbedtls_pk_write_key_pem
+    app_rsa.o(i.RSA_GET_PEM) refers to memseta.o(.text) for __aeabi_memclr4
+    app_rsa.o(i.RSA_GET_PEM) refers to pkwrite.o(i.mbedtls_pk_write_pubkey_pem) for mbedtls_pk_write_pubkey_pem
+    app_rsa.o(i.RSA_GET_PEM) refers to ctr_drbg.o(i.mbedtls_ctr_drbg_free) for mbedtls_ctr_drbg_free
+    app_rsa.o(i.RSA_GET_PEM) refers to pk.o(i.mbedtls_pk_free) for mbedtls_pk_free
+    app_rsa.o(i.RSA_GET_PEM) refers to ctr_drbg.o(i.mbedtls_ctr_drbg_random) for mbedtls_ctr_drbg_random
     app_rsa.o(i.RSA_TEST) refers to strlen.o(.text) for strlen
     app_rsa.o(i.RSA_TEST) refers to memmovea.o(.text) for __aeabi_memcpy
     app_rsa.o(i.RSA_TEST) refers to app_rsa.o(i.rsa_encrypt) for rsa_encrypt
@@ -146,6 +159,7 @@ Section Cross References
     app_rsa.o(i.rsa_decrypt) refers to pk.o(i.mbedtls_pk_init) for mbedtls_pk_init
     app_rsa.o(i.rsa_decrypt) refers to strlen.o(.text) for strlen
     app_rsa.o(i.rsa_decrypt) refers to pkparse.o(i.mbedtls_pk_parse_key) for mbedtls_pk_parse_key
+    app_rsa.o(i.rsa_decrypt) refers to pkparse.o(i.mbedtls_pk_parse_public_key) for mbedtls_pk_parse_public_key
     app_rsa.o(i.rsa_decrypt) refers to rsa.o(i.mbedtls_rsa_init) for mbedtls_rsa_init
     app_rsa.o(i.rsa_decrypt) refers to ctr_drbg.o(i.mbedtls_ctr_drbg_init) for mbedtls_ctr_drbg_init
     app_rsa.o(i.rsa_decrypt) refers to entropy.o(i.mbedtls_entropy_init) for mbedtls_entropy_init
@@ -1945,6 +1959,7 @@ Removing Unused input sections from the image.
     Removing bsp_usart.o(i.Serial_SendArray), (26 bytes).
     Removing bsp_usart.o(i.Serial_SendNumber), (54 bytes).
     Removing bsp_usart.o(i.Serial_SendString), (24 bytes).
+    Removing app_rsa.o(i.RSA_GET_PEM), (324 bytes).
     Removing app_rsa.o(i.RSA_TEST1), (136 bytes).
     Removing app_rsa.o(i.setup), (40 bytes).
     Removing app_rsa.o(.conststring), (181 bytes).
@@ -2118,7 +2133,7 @@ Removing Unused input sections from the image.
     Removing sha256.o(i.mbedtls_sha256_starts), (4 bytes).
     Removing sha256.o(i.mbedtls_sha256_update), (4 bytes).
 
-640 unused section(s) (total 26283 bytes) removed from the image.
+641 unused section(s) (total 26607 bytes) removed from the image.
 
 ==============================================================================
 
@@ -2648,61 +2663,61 @@ Image Symbol Table
     i.rsa_debug                              0x0800af58   Section        0  pk_wrap.o(i.rsa_debug)
     rsa_debug                                0x0800af59   Thumb Code    26  pk_wrap.o(i.rsa_debug)
     i.rsa_decrypt                            0x0800af84   Section        0  app_rsa.o(i.rsa_decrypt)
-    i.rsa_decrypt_wrap                       0x0800b528   Section        0  pk_wrap.o(i.rsa_decrypt_wrap)
-    rsa_decrypt_wrap                         0x0800b529   Thumb Code    58  pk_wrap.o(i.rsa_decrypt_wrap)
-    i.rsa_encrypt                            0x0800b568   Section        0  app_rsa.o(i.rsa_encrypt)
-    i.rsa_encrypt_wrap                       0x0800b7d4   Section        0  pk_wrap.o(i.rsa_encrypt_wrap)
-    rsa_encrypt_wrap                         0x0800b7d5   Thumb Code    60  pk_wrap.o(i.rsa_encrypt_wrap)
-    i.rsa_free_wrap                          0x0800b814   Section        0  pk_wrap.o(i.rsa_free_wrap)
-    rsa_free_wrap                            0x0800b815   Thumb Code    20  pk_wrap.o(i.rsa_free_wrap)
-    i.rsa_get_bitlen                         0x0800b828   Section        0  pk_wrap.o(i.rsa_get_bitlen)
-    rsa_get_bitlen                           0x0800b829   Thumb Code    62  pk_wrap.o(i.rsa_get_bitlen)
-    i.rsa_prepare_blinding                   0x0800b868   Section        0  rsa.o(i.rsa_prepare_blinding)
-    rsa_prepare_blinding                     0x0800b869   Thumb Code   256  rsa.o(i.rsa_prepare_blinding)
-    i.rsa_rsassa_pkcs1_v15_encode            0x0800b96c   Section        0  rsa.o(i.rsa_rsassa_pkcs1_v15_encode)
-    rsa_rsassa_pkcs1_v15_encode              0x0800b96d   Thumb Code   300  rsa.o(i.rsa_rsassa_pkcs1_v15_encode)
-    i.rsa_rsassa_pss_sign                    0x0800ba9c   Section        0  rsa.o(i.rsa_rsassa_pss_sign)
-    rsa_rsassa_pss_sign                      0x0800ba9d   Thumb Code   430  rsa.o(i.rsa_rsassa_pss_sign)
-    i.rsa_sign_wrap                          0x0800bc50   Section        0  pk_wrap.o(i.rsa_sign_wrap)
-    rsa_sign_wrap                            0x0800bc51   Thumb Code    56  pk_wrap.o(i.rsa_sign_wrap)
-    i.rsa_unblind                            0x0800bc88   Section        0  rsa.o(i.rsa_unblind)
-    rsa_unblind                              0x0800bc89   Thumb Code   138  rsa.o(i.rsa_unblind)
-    i.rsa_verify_wrap                        0x0800bd14   Section        0  pk_wrap.o(i.rsa_verify_wrap)
-    rsa_verify_wrap                          0x0800bd15   Thumb Code    72  pk_wrap.o(i.rsa_verify_wrap)
-    .constdata                               0x0800bd64   Section       63  app_rsa.o(.constdata)
-    .constdata                               0x0800bda4   Section     8744  aes.o(.constdata)
-    FSb                                      0x0800bda4   Data         256  aes.o(.constdata)
-    FT0                                      0x0800bea4   Data        1024  aes.o(.constdata)
-    FT1                                      0x0800c2a4   Data        1024  aes.o(.constdata)
-    FT2                                      0x0800c6a4   Data        1024  aes.o(.constdata)
-    FT3                                      0x0800caa4   Data        1024  aes.o(.constdata)
-    RSb                                      0x0800cea4   Data         256  aes.o(.constdata)
-    RT0                                      0x0800cfa4   Data        1024  aes.o(.constdata)
-    RT1                                      0x0800d3a4   Data        1024  aes.o(.constdata)
-    RT2                                      0x0800d7a4   Data        1024  aes.o(.constdata)
-    RT3                                      0x0800dba4   Data        1024  aes.o(.constdata)
-    round_constants                          0x0800dfa4   Data          40  aes.o(.constdata)
-    .constdata                               0x0800dfcc   Section      672  bignum.o(.constdata)
-    small_prime                              0x0800dfcc   Data         672  bignum.o(.constdata)
-    .constdata                               0x0800e26c   Section       52  md.o(.constdata)
-    supported_digests                        0x0800e28c   Data          20  md.o(.constdata)
-    .constdata                               0x0800e2a0   Section     1160  oid.o(.constdata)
-    oid_x520_attr_type                       0x0800e2a0   Data         400  oid.o(.constdata)
-    oid_x509_ext                             0x0800e430   Data         140  oid.o(.constdata)
-    oid_ext_key_usage                        0x0800e4bc   Data         128  oid.o(.constdata)
-    oid_certificate_policies                 0x0800e53c   Data          32  oid.o(.constdata)
-    oid_sig_alg                              0x0800e55c   Data         140  oid.o(.constdata)
-    oid_pk_alg                               0x0800e5e8   Data          80  oid.o(.constdata)
-    oid_cipher_alg                           0x0800e638   Data          60  oid.o(.constdata)
-    oid_md_alg                               0x0800e674   Data         100  oid.o(.constdata)
-    oid_md_hmac                              0x0800e6d8   Data          80  oid.o(.constdata)
-    .constdata                               0x0800e728   Section       48  pk_wrap.o(.constdata)
-    .constdata                               0x0800e758   Section      256  sha256.o(.constdata)
-    K                                        0x0800e758   Data         256  sha256.o(.constdata)
-    .conststring                             0x0800e858   Section     2709  app_rsa.o(.conststring)
-    .conststring                             0x0800f2f0   Section        4  md.o(.conststring)
-    .conststring                             0x0800f2f4   Section     2267  oid.o(.conststring)
-    .conststrlit                             0x0800fbd0   Section        5  oid.o(.conststrlit)
+    i.rsa_decrypt_wrap                       0x0800b5bc   Section        0  pk_wrap.o(i.rsa_decrypt_wrap)
+    rsa_decrypt_wrap                         0x0800b5bd   Thumb Code    58  pk_wrap.o(i.rsa_decrypt_wrap)
+    i.rsa_encrypt                            0x0800b5fc   Section        0  app_rsa.o(i.rsa_encrypt)
+    i.rsa_encrypt_wrap                       0x0800b868   Section        0  pk_wrap.o(i.rsa_encrypt_wrap)
+    rsa_encrypt_wrap                         0x0800b869   Thumb Code    60  pk_wrap.o(i.rsa_encrypt_wrap)
+    i.rsa_free_wrap                          0x0800b8a8   Section        0  pk_wrap.o(i.rsa_free_wrap)
+    rsa_free_wrap                            0x0800b8a9   Thumb Code    20  pk_wrap.o(i.rsa_free_wrap)
+    i.rsa_get_bitlen                         0x0800b8bc   Section        0  pk_wrap.o(i.rsa_get_bitlen)
+    rsa_get_bitlen                           0x0800b8bd   Thumb Code    62  pk_wrap.o(i.rsa_get_bitlen)
+    i.rsa_prepare_blinding                   0x0800b8fc   Section        0  rsa.o(i.rsa_prepare_blinding)
+    rsa_prepare_blinding                     0x0800b8fd   Thumb Code   256  rsa.o(i.rsa_prepare_blinding)
+    i.rsa_rsassa_pkcs1_v15_encode            0x0800ba00   Section        0  rsa.o(i.rsa_rsassa_pkcs1_v15_encode)
+    rsa_rsassa_pkcs1_v15_encode              0x0800ba01   Thumb Code   300  rsa.o(i.rsa_rsassa_pkcs1_v15_encode)
+    i.rsa_rsassa_pss_sign                    0x0800bb30   Section        0  rsa.o(i.rsa_rsassa_pss_sign)
+    rsa_rsassa_pss_sign                      0x0800bb31   Thumb Code   430  rsa.o(i.rsa_rsassa_pss_sign)
+    i.rsa_sign_wrap                          0x0800bce4   Section        0  pk_wrap.o(i.rsa_sign_wrap)
+    rsa_sign_wrap                            0x0800bce5   Thumb Code    56  pk_wrap.o(i.rsa_sign_wrap)
+    i.rsa_unblind                            0x0800bd1c   Section        0  rsa.o(i.rsa_unblind)
+    rsa_unblind                              0x0800bd1d   Thumb Code   138  rsa.o(i.rsa_unblind)
+    i.rsa_verify_wrap                        0x0800bda8   Section        0  pk_wrap.o(i.rsa_verify_wrap)
+    rsa_verify_wrap                          0x0800bda9   Thumb Code    72  pk_wrap.o(i.rsa_verify_wrap)
+    .constdata                               0x0800bdf8   Section       63  app_rsa.o(.constdata)
+    .constdata                               0x0800be38   Section     8744  aes.o(.constdata)
+    FSb                                      0x0800be38   Data         256  aes.o(.constdata)
+    FT0                                      0x0800bf38   Data        1024  aes.o(.constdata)
+    FT1                                      0x0800c338   Data        1024  aes.o(.constdata)
+    FT2                                      0x0800c738   Data        1024  aes.o(.constdata)
+    FT3                                      0x0800cb38   Data        1024  aes.o(.constdata)
+    RSb                                      0x0800cf38   Data         256  aes.o(.constdata)
+    RT0                                      0x0800d038   Data        1024  aes.o(.constdata)
+    RT1                                      0x0800d438   Data        1024  aes.o(.constdata)
+    RT2                                      0x0800d838   Data        1024  aes.o(.constdata)
+    RT3                                      0x0800dc38   Data        1024  aes.o(.constdata)
+    round_constants                          0x0800e038   Data          40  aes.o(.constdata)
+    .constdata                               0x0800e060   Section      672  bignum.o(.constdata)
+    small_prime                              0x0800e060   Data         672  bignum.o(.constdata)
+    .constdata                               0x0800e300   Section       52  md.o(.constdata)
+    supported_digests                        0x0800e320   Data          20  md.o(.constdata)
+    .constdata                               0x0800e334   Section     1160  oid.o(.constdata)
+    oid_x520_attr_type                       0x0800e334   Data         400  oid.o(.constdata)
+    oid_x509_ext                             0x0800e4c4   Data         140  oid.o(.constdata)
+    oid_ext_key_usage                        0x0800e550   Data         128  oid.o(.constdata)
+    oid_certificate_policies                 0x0800e5d0   Data          32  oid.o(.constdata)
+    oid_sig_alg                              0x0800e5f0   Data         140  oid.o(.constdata)
+    oid_pk_alg                               0x0800e67c   Data          80  oid.o(.constdata)
+    oid_cipher_alg                           0x0800e6cc   Data          60  oid.o(.constdata)
+    oid_md_alg                               0x0800e708   Data         100  oid.o(.constdata)
+    oid_md_hmac                              0x0800e76c   Data          80  oid.o(.constdata)
+    .constdata                               0x0800e7bc   Section       48  pk_wrap.o(.constdata)
+    .constdata                               0x0800e7ec   Section      256  sha256.o(.constdata)
+    K                                        0x0800e7ec   Data         256  sha256.o(.constdata)
+    .conststring                             0x0800e8ec   Section     1309  app_rsa.o(.conststring)
+    .conststring                             0x0800ee0c   Section        4  md.o(.conststring)
+    .conststring                             0x0800ee10   Section     2267  oid.o(.conststring)
+    .conststrlit                             0x0800f6ec   Section        5  oid.o(.conststrlit)
     .data                                    0x20000000   Section       20  stm32f10x_rcc.o(.data)
     ADCPrescTable                            0x20000000   Data           4  stm32f10x_rcc.o(.data)
     APBAHBPrescTable                         0x20000004   Data          16  stm32f10x_rcc.o(.data)
@@ -3081,16 +3096,16 @@ Image Symbol Table
     mbedtls_sha256_ret                       0x0800a11f   Thumb Code    66  sha256.o(i.mbedtls_sha256_ret)
     mbedtls_sha256_starts_ret                0x0800a161   Thumb Code    82  sha256.o(i.mbedtls_sha256_starts_ret)
     mbedtls_sha256_update_ret                0x0800a1f5   Thumb Code   124  sha256.o(i.mbedtls_sha256_update_ret)
-    rsa_decrypt                              0x0800af85   Thumb Code   752  app_rsa.o(i.rsa_decrypt)
-    rsa_encrypt                              0x0800b569   Thumb Code   262  app_rsa.o(i.rsa_encrypt)
-    aes_data                                 0x0800bd64   Data          63  app_rsa.o(.constdata)
-    mbedtls_md5_info                         0x0800e26c   Data           8  md.o(.constdata)
-    mbedtls_sha1_info                        0x0800e274   Data           8  md.o(.constdata)
-    mbedtls_sha224_info                      0x0800e27c   Data           8  md.o(.constdata)
-    mbedtls_sha256_info                      0x0800e284   Data           8  md.o(.constdata)
-    mbedtls_rsa_info                         0x0800e728   Data          48  pk_wrap.o(.constdata)
-    Region$$Table$$Base                      0x0800fbd8   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x0800fbf8   Number         0  anon$$obj.o(Region$$Table)
+    rsa_decrypt                              0x0800af85   Thumb Code   826  app_rsa.o(i.rsa_decrypt)
+    rsa_encrypt                              0x0800b5fd   Thumb Code   262  app_rsa.o(i.rsa_encrypt)
+    aes_data                                 0x0800bdf8   Data          63  app_rsa.o(.constdata)
+    mbedtls_md5_info                         0x0800e300   Data           8  md.o(.constdata)
+    mbedtls_sha1_info                        0x0800e308   Data           8  md.o(.constdata)
+    mbedtls_sha224_info                      0x0800e310   Data           8  md.o(.constdata)
+    mbedtls_sha256_info                      0x0800e318   Data           8  md.o(.constdata)
+    mbedtls_rsa_info                         0x0800e7bc   Data          48  pk_wrap.o(.constdata)
+    Region$$Table$$Base                      0x0800f6f4   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x0800f714   Number         0  anon$$obj.o(Region$$Table)
     Serial_RxFlag                            0x20000016   Data           1  bsp_usart.o(.data)
     my_public_key                            0x20000018   Data           4  app_rsa.o(.data)
     my_private_key                           0x2000001c   Data           4  app_rsa.o(.data)
@@ -3114,45 +3129,45 @@ Memory Map of the image
 
   Image Entry point : 0x08000131
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000fc34, Max: 0x00020000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000f750, Max: 0x00020000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0000fbf8, Max: 0x00020000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0000f714, Max: 0x00020000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x08000000   0x08000000   0x00000130   Data   RO            3    RESET               startup_stm32f10x_hd.o
-    0x08000130   0x08000130   0x00000000   Code   RO         6386  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x08000130   0x08000130   0x00000004   Code   RO         6726    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x08000134   0x08000134   0x00000004   Code   RO         6729    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x08000138   0x08000138   0x00000000   Code   RO         6731    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x08000138   0x08000138   0x00000000   Code   RO         6733    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x08000138   0x08000138   0x00000008   Code   RO         6734    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x08000140   0x08000140   0x00000000   Code   RO         6736    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x08000140   0x08000140   0x00000000   Code   RO         6738    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x08000140   0x08000140   0x00000004   Code   RO         6727    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x08000130   0x08000130   0x00000000   Code   RO         6392  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x08000130   0x08000130   0x00000004   Code   RO         6732    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x08000134   0x08000134   0x00000004   Code   RO         6735    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x08000138   0x08000138   0x00000000   Code   RO         6737    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x08000138   0x08000138   0x00000000   Code   RO         6739    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x08000138   0x08000138   0x00000008   Code   RO         6740    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x08000140   0x08000140   0x00000000   Code   RO         6742    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x08000140   0x08000140   0x00000000   Code   RO         6744    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x08000140   0x08000140   0x00000004   Code   RO         6733    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x08000144   0x08000144   0x00000024   Code   RO            4    .text               startup_stm32f10x_hd.o
-    0x08000168   0x08000168   0x00000062   Code   RO         6410    .text               mc_w.l(uldiv.o)
+    0x08000168   0x08000168   0x00000062   Code   RO         6416    .text               mc_w.l(uldiv.o)
     0x080001ca   0x080001ca   0x00000002   PAD
-    0x080001cc   0x080001cc   0x00000024   Code   RO         6412    .text               mc_w.l(rand.o)
-    0x080001f0   0x080001f0   0x00000040   Code   RO         6417    .text               mc_w.l(memmovea.o)
-    0x08000230   0x08000230   0x00000024   Code   RO         6421    .text               mc_w.l(memseta.o)
-    0x08000254   0x08000254   0x00000024   Code   RO         6423    .text               mc_w.l(strstr.o)
-    0x08000278   0x08000278   0x0000000e   Code   RO         6425    .text               mc_w.l(strlen.o)
-    0x08000286   0x08000286   0x0000001a   Code   RO         6429    .text               mc_w.l(memcmp.o)
-    0x080002a0   0x080002a0   0x0000001c   Code   RO         6724    .text               mc_w.l(calloc.o)
-    0x080002bc   0x080002bc   0x0000002c   Code   RO         6751    .text               mc_w.l(uidiv.o)
-    0x080002e8   0x080002e8   0x0000001e   Code   RO         6753    .text               mc_w.l(llshl.o)
-    0x08000306   0x08000306   0x00000020   Code   RO         6755    .text               mc_w.l(llushr.o)
-    0x08000326   0x08000326   0x00000000   Code   RO         6759    .text               mc_w.l(iusefp.o)
-    0x08000326   0x08000326   0x0000014e   Code   RO         6760    .text               mf_w.l(dadd.o)
-    0x08000474   0x08000474   0x000000e4   Code   RO         6762    .text               mf_w.l(dmul.o)
-    0x08000558   0x08000558   0x000000de   Code   RO         6764    .text               mf_w.l(ddiv.o)
-    0x08000636   0x08000636   0x00000030   Code   RO         6766    .text               mf_w.l(dfixul.o)
+    0x080001cc   0x080001cc   0x00000024   Code   RO         6418    .text               mc_w.l(rand.o)
+    0x080001f0   0x080001f0   0x00000040   Code   RO         6423    .text               mc_w.l(memmovea.o)
+    0x08000230   0x08000230   0x00000024   Code   RO         6427    .text               mc_w.l(memseta.o)
+    0x08000254   0x08000254   0x00000024   Code   RO         6429    .text               mc_w.l(strstr.o)
+    0x08000278   0x08000278   0x0000000e   Code   RO         6431    .text               mc_w.l(strlen.o)
+    0x08000286   0x08000286   0x0000001a   Code   RO         6435    .text               mc_w.l(memcmp.o)
+    0x080002a0   0x080002a0   0x0000001c   Code   RO         6730    .text               mc_w.l(calloc.o)
+    0x080002bc   0x080002bc   0x0000002c   Code   RO         6757    .text               mc_w.l(uidiv.o)
+    0x080002e8   0x080002e8   0x0000001e   Code   RO         6759    .text               mc_w.l(llshl.o)
+    0x08000306   0x08000306   0x00000020   Code   RO         6761    .text               mc_w.l(llushr.o)
+    0x08000326   0x08000326   0x00000000   Code   RO         6765    .text               mc_w.l(iusefp.o)
+    0x08000326   0x08000326   0x0000014e   Code   RO         6766    .text               mf_w.l(dadd.o)
+    0x08000474   0x08000474   0x000000e4   Code   RO         6768    .text               mf_w.l(dmul.o)
+    0x08000558   0x08000558   0x000000de   Code   RO         6770    .text               mf_w.l(ddiv.o)
+    0x08000636   0x08000636   0x00000030   Code   RO         6772    .text               mf_w.l(dfixul.o)
     0x08000666   0x08000666   0x00000002   PAD
-    0x08000668   0x08000668   0x00000030   Code   RO         6768    .text               mf_w.l(cdrcmple.o)
-    0x08000698   0x08000698   0x00000024   Code   RO         6770    .text               mc_w.l(init.o)
-    0x080006bc   0x080006bc   0x00000024   Code   RO         6773    .text               mc_w.l(llsshr.o)
-    0x080006e0   0x080006e0   0x000000ba   Code   RO         6776    .text               mf_w.l(depilogue.o)
+    0x08000668   0x08000668   0x00000030   Code   RO         6774    .text               mf_w.l(cdrcmple.o)
+    0x08000698   0x08000698   0x00000024   Code   RO         6776    .text               mc_w.l(init.o)
+    0x080006bc   0x080006bc   0x00000024   Code   RO         6779    .text               mc_w.l(llsshr.o)
+    0x080006e0   0x080006e0   0x000000ba   Code   RO         6782    .text               mf_w.l(depilogue.o)
     0x0800079a   0x0800079a   0x00000002   Code   RO         3145    i.BusFault_Handler  stm32f10x_it.o
     0x0800079c   0x0800079c   0x00000020   Code   RO         3098    i.DRV_InterGenerateRandVec  main.o
     0x080007bc   0x080007bc   0x00000002   Code   RO         3146    i.DebugMon_Handler  stm32f10x_it.o
@@ -3166,7 +3181,7 @@ Memory Map of the image
     0x080008e6   0x080008e6   0x00000002   PAD
     0x080008e8   0x080008e8   0x0000001c   Code   RO         1700    i.RCC_APB2PeriphClockCmd  stm32f10x_rcc.o
     0x08000904   0x08000904   0x000000ac   Code   RO         1708    i.RCC_GetClocksFreq  stm32f10x_rcc.o
-    0x080009b0   0x080009b0   0x000000a0   Code   RO         3273    i.RSA_TEST          app_rsa.o
+    0x080009b0   0x080009b0   0x000000a0   Code   RO         3274    i.RSA_TEST          app_rsa.o
     0x08000a50   0x08000a50   0x00000002   Code   RO         3150    i.SVC_Handler       stm32f10x_it.o
     0x08000a52   0x08000a52   0x00000002   PAD
     0x08000a54   0x08000a54   0x000000b4   Code   RO         3202    i.Serial_Init       bsp_usart.o
@@ -3187,275 +3202,275 @@ Memory Map of the image
     0x08000e20   0x08000e20   0x00000008   Code   RO         2885    i.USART_SendData    stm32f10x_usart.o
     0x08000e28   0x08000e28   0x00000002   Code   RO         3152    i.UsageFault_Handler  stm32f10x_it.o
     0x08000e2a   0x08000e2a   0x00000002   PAD
-    0x08000e2c   0x08000e2c   0x00000020   Code   RO         6668    i.__0printf         mc_w.l(printfa.o)
-    0x08000e4c   0x08000e4c   0x0000000e   Code   RO         6780    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x08000e5a   0x08000e5a   0x00000002   Code   RO         6781    i.__scatterload_null  mc_w.l(handlers.o)
-    0x08000e5c   0x08000e5c   0x0000000e   Code   RO         6782    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x08000e2c   0x08000e2c   0x00000020   Code   RO         6674    i.__0printf         mc_w.l(printfa.o)
+    0x08000e4c   0x08000e4c   0x0000000e   Code   RO         6786    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x08000e5a   0x08000e5a   0x00000002   Code   RO         6787    i.__scatterload_null  mc_w.l(handlers.o)
+    0x08000e5c   0x08000e5c   0x0000000e   Code   RO         6788    i.__scatterload_zeroinit  mc_w.l(handlers.o)
     0x08000e6a   0x08000e6a   0x00000002   PAD
-    0x08000e6c   0x08000e6c   0x00000184   Code   RO         6675    i._fp_digits        mc_w.l(printfa.o)
-    0x08000ff0   0x08000ff0   0x000006dc   Code   RO         6676    i._printf_core      mc_w.l(printfa.o)
-    0x080016cc   0x080016cc   0x00000024   Code   RO         6677    i._printf_post_padding  mc_w.l(printfa.o)
-    0x080016f0   0x080016f0   0x0000002e   Code   RO         6678    i._printf_pre_padding  mc_w.l(printfa.o)
-    0x0800171e   0x0800171e   0x00000062   Code   RO         3762    i.add_sub_mpi       bignum.o
-    0x08001780   0x08001780   0x00000024   Code   RO         5404    i.asn1_get_nonzero_mpi  pkparse.o
-    0x080017a4   0x080017a4   0x0000007e   Code   RO         3494    i.asn1_get_tagged_int  asn1parse.o
-    0x08001822   0x08001822   0x00000168   Code   RO         4446    i.block_cipher_df   ctr_drbg.o
-    0x0800198a   0x0800198a   0x0000008c   Code   RO         4447    i.ctr_drbg_update_internal  ctr_drbg.o
+    0x08000e6c   0x08000e6c   0x00000184   Code   RO         6681    i._fp_digits        mc_w.l(printfa.o)
+    0x08000ff0   0x08000ff0   0x000006dc   Code   RO         6682    i._printf_core      mc_w.l(printfa.o)
+    0x080016cc   0x080016cc   0x00000024   Code   RO         6683    i._printf_post_padding  mc_w.l(printfa.o)
+    0x080016f0   0x080016f0   0x0000002e   Code   RO         6684    i._printf_pre_padding  mc_w.l(printfa.o)
+    0x0800171e   0x0800171e   0x00000062   Code   RO         3768    i.add_sub_mpi       bignum.o
+    0x08001780   0x08001780   0x00000024   Code   RO         5410    i.asn1_get_nonzero_mpi  pkparse.o
+    0x080017a4   0x080017a4   0x0000007e   Code   RO         3500    i.asn1_get_tagged_int  asn1parse.o
+    0x08001822   0x08001822   0x00000168   Code   RO         4452    i.block_cipher_df   ctr_drbg.o
+    0x0800198a   0x0800198a   0x0000008c   Code   RO         4453    i.ctr_drbg_update_internal  ctr_drbg.o
     0x08001a16   0x08001a16   0x00000002   PAD
-    0x08001a18   0x08001a18   0x00000050   Code   RO         3275    i.dump_buf          app_rsa.o
-    0x08001a68   0x08001a68   0x00000154   Code   RO         3276    i.dump_rsa_key      app_rsa.o
-    0x08001bbc   0x08001bbc   0x00000086   Code   RO         4607    i.entropy_gather_internal  entropy.o
-    0x08001c42   0x08001c42   0x00000014   Code   RO         3277    i.entropy_source    app_rsa.o
-    0x08001c56   0x08001c56   0x0000006c   Code   RO         4608    i.entropy_update    entropy.o
+    0x08001a18   0x08001a18   0x00000050   Code   RO         3276    i.dump_buf          app_rsa.o
+    0x08001a68   0x08001a68   0x00000154   Code   RO         3277    i.dump_rsa_key      app_rsa.o
+    0x08001bbc   0x08001bbc   0x00000086   Code   RO         4613    i.entropy_gather_internal  entropy.o
+    0x08001c42   0x08001c42   0x00000014   Code   RO         3278    i.entropy_source    app_rsa.o
+    0x08001c56   0x08001c56   0x0000006c   Code   RO         4614    i.entropy_update    entropy.o
     0x08001cc2   0x08001cc2   0x0000000e   Code   RO         3210    i.fputc             bsp_usart.o
-    0x08001cd0   0x08001cd0   0x00000050   Code   RO         6696    i.free              mc_w.l(malloc.o)
-    0x08001d20   0x08001d20   0x0000000e   Code   RO         4448    i.good_nonce_len    ctr_drbg.o
+    0x08001cd0   0x08001cd0   0x00000050   Code   RO         6702    i.free              mc_w.l(malloc.o)
+    0x08001d20   0x08001d20   0x0000000e   Code   RO         4454    i.good_nonce_len    ctr_drbg.o
     0x08001d2e   0x08001d2e   0x0000000a   Code   RO         3101    i.main              main.o
-    0x08001d38   0x08001d38   0x0000006c   Code   RO         6697    i.malloc            mc_w.l(malloc.o)
-    0x08001da4   0x08001da4   0x00000018   Code   RO         3393    i.mbedtls_aes_crypt_ecb  aes.o
-    0x08001dbc   0x08001dbc   0x0000000e   Code   RO         3396    i.mbedtls_aes_free  aes.o
-    0x08001dca   0x08001dca   0x00000008   Code   RO         3397    i.mbedtls_aes_init  aes.o
-    0x08001dd2   0x08001dd2   0x00000004   Code   RO         3398    i.mbedtls_aes_rk_offset  aes.o
+    0x08001d38   0x08001d38   0x0000006c   Code   RO         6703    i.malloc            mc_w.l(malloc.o)
+    0x08001da4   0x08001da4   0x00000018   Code   RO         3399    i.mbedtls_aes_crypt_ecb  aes.o
+    0x08001dbc   0x08001dbc   0x0000000e   Code   RO         3402    i.mbedtls_aes_free  aes.o
+    0x08001dca   0x08001dca   0x00000008   Code   RO         3403    i.mbedtls_aes_init  aes.o
+    0x08001dd2   0x08001dd2   0x00000004   Code   RO         3404    i.mbedtls_aes_rk_offset  aes.o
     0x08001dd6   0x08001dd6   0x00000002   PAD
-    0x08001dd8   0x08001dd8   0x000001b4   Code   RO         3400    i.mbedtls_aes_setkey_enc  aes.o
-    0x08001f8c   0x08001f8c   0x00000090   Code   RO         3498    i.mbedtls_asn1_get_alg  asn1parse.o
-    0x0800201c   0x0800201c   0x00000036   Code   RO         3501    i.mbedtls_asn1_get_bitstring_null  asn1parse.o
-    0x08002052   0x08002052   0x00000008   Code   RO         3504    i.mbedtls_asn1_get_int  asn1parse.o
-    0x0800205a   0x0800205a   0x000000c0   Code   RO         3505    i.mbedtls_asn1_get_len  asn1parse.o
-    0x0800211a   0x0800211a   0x00000028   Code   RO         3506    i.mbedtls_asn1_get_mpi  asn1parse.o
-    0x08002142   0x08002142   0x00000028   Code   RO         3508    i.mbedtls_asn1_get_tag  asn1parse.o
-    0x0800216a   0x0800216a   0x0000013c   Code   RO         3741    i.mbedtls_base64_decode  base64.o
-    0x080022a6   0x080022a6   0x00000110   Code   RO         3742    i.mbedtls_base64_encode  base64.o
-    0x080023b6   0x080023b6   0x00000016   Code   RO         3763    i.mbedtls_clz       bignum.o
-    0x080023cc   0x080023cc   0x00000066   Code   RO         4344    i.mbedtls_ct_base64_dec_value  constant_time.o
-    0x08002432   0x08002432   0x0000005e   Code   RO         4345    i.mbedtls_ct_base64_enc_char  constant_time.o
-    0x08002490   0x08002490   0x00000054   Code   RO         4346    i.mbedtls_ct_mem_move_to_left  constant_time.o
-    0x080024e4   0x080024e4   0x00000022   Code   RO         4347    i.mbedtls_ct_memcmp  constant_time.o
-    0x08002506   0x08002506   0x00000022   Code   RO         4348    i.mbedtls_ct_mpi_uint_cond_assign  constant_time.o
-    0x08002528   0x08002528   0x00000008   Code   RO         4350    i.mbedtls_ct_mpi_uint_mask  constant_time.o
-    0x08002530   0x08002530   0x00000136   Code   RO         4351    i.mbedtls_ct_rsaes_pkcs1_v15_unpadding  constant_time.o
-    0x08002666   0x08002666   0x0000000e   Code   RO         4352    i.mbedtls_ct_size_bool_eq  constant_time.o
-    0x08002674   0x08002674   0x00000006   Code   RO         4353    i.mbedtls_ct_size_gt  constant_time.o
-    0x0800267a   0x0800267a   0x00000010   Code   RO         4354    i.mbedtls_ct_uchar_mask_of_range  constant_time.o
-    0x0800268a   0x0800268a   0x00000014   Code   RO         4355    i.mbedtls_ct_uint_if  constant_time.o
-    0x0800269e   0x0800269e   0x00000008   Code   RO         4356    i.mbedtls_ct_uint_mask  constant_time.o
-    0x080026a6   0x080026a6   0x00000028   Code   RO         4449    i.mbedtls_ctr_drbg_free  ctr_drbg.o
-    0x080026ce   0x080026ce   0x0000001c   Code   RO         4450    i.mbedtls_ctr_drbg_init  ctr_drbg.o
-    0x080026ea   0x080026ea   0x0000000c   Code   RO         4451    i.mbedtls_ctr_drbg_random  ctr_drbg.o
-    0x080026f6   0x080026f6   0x000000da   Code   RO         4452    i.mbedtls_ctr_drbg_random_with_add  ctr_drbg.o
-    0x080027d0   0x080027d0   0x00000006   Code   RO         4453    i.mbedtls_ctr_drbg_reseed  ctr_drbg.o
-    0x080027d6   0x080027d6   0x000000ba   Code   RO         4454    i.mbedtls_ctr_drbg_reseed_internal  ctr_drbg.o
-    0x08002890   0x08002890   0x00000066   Code   RO         4455    i.mbedtls_ctr_drbg_seed  ctr_drbg.o
-    0x080028f6   0x080028f6   0x0000002e   Code   RO         4609    i.mbedtls_entropy_add_source  entropy.o
-    0x08002924   0x08002924   0x00000028   Code   RO         4610    i.mbedtls_entropy_free  entropy.o
-    0x0800294c   0x0800294c   0x000000f8   Code   RO         4611    i.mbedtls_entropy_func  entropy.o
-    0x08002a44   0x08002a44   0x00000020   Code   RO         4613    i.mbedtls_entropy_init  entropy.o
-    0x08002a64   0x08002a64   0x0000004a   Code   RO         3764    i.mbedtls_int_div_int  bignum.o
+    0x08001dd8   0x08001dd8   0x000001b4   Code   RO         3406    i.mbedtls_aes_setkey_enc  aes.o
+    0x08001f8c   0x08001f8c   0x00000090   Code   RO         3504    i.mbedtls_asn1_get_alg  asn1parse.o
+    0x0800201c   0x0800201c   0x00000036   Code   RO         3507    i.mbedtls_asn1_get_bitstring_null  asn1parse.o
+    0x08002052   0x08002052   0x00000008   Code   RO         3510    i.mbedtls_asn1_get_int  asn1parse.o
+    0x0800205a   0x0800205a   0x000000c0   Code   RO         3511    i.mbedtls_asn1_get_len  asn1parse.o
+    0x0800211a   0x0800211a   0x00000028   Code   RO         3512    i.mbedtls_asn1_get_mpi  asn1parse.o
+    0x08002142   0x08002142   0x00000028   Code   RO         3514    i.mbedtls_asn1_get_tag  asn1parse.o
+    0x0800216a   0x0800216a   0x0000013c   Code   RO         3747    i.mbedtls_base64_decode  base64.o
+    0x080022a6   0x080022a6   0x00000110   Code   RO         3748    i.mbedtls_base64_encode  base64.o
+    0x080023b6   0x080023b6   0x00000016   Code   RO         3769    i.mbedtls_clz       bignum.o
+    0x080023cc   0x080023cc   0x00000066   Code   RO         4350    i.mbedtls_ct_base64_dec_value  constant_time.o
+    0x08002432   0x08002432   0x0000005e   Code   RO         4351    i.mbedtls_ct_base64_enc_char  constant_time.o
+    0x08002490   0x08002490   0x00000054   Code   RO         4352    i.mbedtls_ct_mem_move_to_left  constant_time.o
+    0x080024e4   0x080024e4   0x00000022   Code   RO         4353    i.mbedtls_ct_memcmp  constant_time.o
+    0x08002506   0x08002506   0x00000022   Code   RO         4354    i.mbedtls_ct_mpi_uint_cond_assign  constant_time.o
+    0x08002528   0x08002528   0x00000008   Code   RO         4356    i.mbedtls_ct_mpi_uint_mask  constant_time.o
+    0x08002530   0x08002530   0x00000136   Code   RO         4357    i.mbedtls_ct_rsaes_pkcs1_v15_unpadding  constant_time.o
+    0x08002666   0x08002666   0x0000000e   Code   RO         4358    i.mbedtls_ct_size_bool_eq  constant_time.o
+    0x08002674   0x08002674   0x00000006   Code   RO         4359    i.mbedtls_ct_size_gt  constant_time.o
+    0x0800267a   0x0800267a   0x00000010   Code   RO         4360    i.mbedtls_ct_uchar_mask_of_range  constant_time.o
+    0x0800268a   0x0800268a   0x00000014   Code   RO         4361    i.mbedtls_ct_uint_if  constant_time.o
+    0x0800269e   0x0800269e   0x00000008   Code   RO         4362    i.mbedtls_ct_uint_mask  constant_time.o
+    0x080026a6   0x080026a6   0x00000028   Code   RO         4455    i.mbedtls_ctr_drbg_free  ctr_drbg.o
+    0x080026ce   0x080026ce   0x0000001c   Code   RO         4456    i.mbedtls_ctr_drbg_init  ctr_drbg.o
+    0x080026ea   0x080026ea   0x0000000c   Code   RO         4457    i.mbedtls_ctr_drbg_random  ctr_drbg.o
+    0x080026f6   0x080026f6   0x000000da   Code   RO         4458    i.mbedtls_ctr_drbg_random_with_add  ctr_drbg.o
+    0x080027d0   0x080027d0   0x00000006   Code   RO         4459    i.mbedtls_ctr_drbg_reseed  ctr_drbg.o
+    0x080027d6   0x080027d6   0x000000ba   Code   RO         4460    i.mbedtls_ctr_drbg_reseed_internal  ctr_drbg.o
+    0x08002890   0x08002890   0x00000066   Code   RO         4461    i.mbedtls_ctr_drbg_seed  ctr_drbg.o
+    0x080028f6   0x080028f6   0x0000002e   Code   RO         4615    i.mbedtls_entropy_add_source  entropy.o
+    0x08002924   0x08002924   0x00000028   Code   RO         4616    i.mbedtls_entropy_free  entropy.o
+    0x0800294c   0x0800294c   0x000000f8   Code   RO         4617    i.mbedtls_entropy_func  entropy.o
+    0x08002a44   0x08002a44   0x00000020   Code   RO         4619    i.mbedtls_entropy_init  entropy.o
+    0x08002a64   0x08002a64   0x0000004a   Code   RO         3770    i.mbedtls_int_div_int  bignum.o
     0x08002aae   0x08002aae   0x00000002   PAD
-    0x08002ab0   0x08002ab0   0x000004b4   Code   RO         3401    i.mbedtls_internal_aes_decrypt  aes.o
-    0x08002f64   0x08002f64   0x000004b4   Code   RO         3402    i.mbedtls_internal_aes_encrypt  aes.o
-    0x08003418   0x08003418   0x00000c04   Code   RO         4885    i.mbedtls_internal_md5_process  md5.o
-    0x0800401c   0x0800401c   0x000013dc   Code   RO         6068    i.mbedtls_internal_sha1_process  sha1.o
-    0x080053f8   0x080053f8   0x000009f0   Code   RO         6152    i.mbedtls_internal_sha256_process  sha256.o
-    0x08005de8   0x08005de8   0x00000054   Code   RO         4713    i.mbedtls_md        md.o
-    0x08005e3c   0x08005e3c   0x000000e2   Code   RO         4889    i.mbedtls_md5_finish_ret  md5.o
-    0x08005f1e   0x08005f1e   0x0000000c   Code   RO         4890    i.mbedtls_md5_free  md5.o
-    0x08005f2a   0x08005f2a   0x00000006   Code   RO         4891    i.mbedtls_md5_init  md5.o
-    0x08005f30   0x08005f30   0x0000003e   Code   RO         4893    i.mbedtls_md5_ret   md5.o
+    0x08002ab0   0x08002ab0   0x000004b4   Code   RO         3407    i.mbedtls_internal_aes_decrypt  aes.o
+    0x08002f64   0x08002f64   0x000004b4   Code   RO         3408    i.mbedtls_internal_aes_encrypt  aes.o
+    0x08003418   0x08003418   0x00000c04   Code   RO         4891    i.mbedtls_internal_md5_process  md5.o
+    0x0800401c   0x0800401c   0x000013dc   Code   RO         6074    i.mbedtls_internal_sha1_process  sha1.o
+    0x080053f8   0x080053f8   0x000009f0   Code   RO         6158    i.mbedtls_internal_sha256_process  sha256.o
+    0x08005de8   0x08005de8   0x00000054   Code   RO         4719    i.mbedtls_md        md.o
+    0x08005e3c   0x08005e3c   0x000000e2   Code   RO         4895    i.mbedtls_md5_finish_ret  md5.o
+    0x08005f1e   0x08005f1e   0x0000000c   Code   RO         4896    i.mbedtls_md5_free  md5.o
+    0x08005f2a   0x08005f2a   0x00000006   Code   RO         4897    i.mbedtls_md5_init  md5.o
+    0x08005f30   0x08005f30   0x0000003e   Code   RO         4899    i.mbedtls_md5_ret   md5.o
     0x08005f6e   0x08005f6e   0x00000002   PAD
-    0x08005f70   0x08005f70   0x00000028   Code   RO         4895    i.mbedtls_md5_starts_ret  md5.o
-    0x08005f98   0x08005f98   0x0000007c   Code   RO         4897    i.mbedtls_md5_update_ret  md5.o
-    0x08006014   0x08006014   0x0000003c   Code   RO         4716    i.mbedtls_md_finish  md.o
-    0x08006050   0x08006050   0x00000064   Code   RO         4717    i.mbedtls_md_free   md.o
-    0x080060b4   0x080060b4   0x0000000c   Code   RO         4719    i.mbedtls_md_get_size  md.o
-    0x080060c0   0x080060c0   0x00000030   Code   RO         4727    i.mbedtls_md_info_from_type  md.o
-    0x080060f0   0x080060f0   0x0000000a   Code   RO         4728    i.mbedtls_md_init   md.o
+    0x08005f70   0x08005f70   0x00000028   Code   RO         4901    i.mbedtls_md5_starts_ret  md5.o
+    0x08005f98   0x08005f98   0x0000007c   Code   RO         4903    i.mbedtls_md5_update_ret  md5.o
+    0x08006014   0x08006014   0x0000003c   Code   RO         4722    i.mbedtls_md_finish  md.o
+    0x08006050   0x08006050   0x00000064   Code   RO         4723    i.mbedtls_md_free   md.o
+    0x080060b4   0x080060b4   0x0000000c   Code   RO         4725    i.mbedtls_md_get_size  md.o
+    0x080060c0   0x080060c0   0x00000030   Code   RO         4733    i.mbedtls_md_info_from_type  md.o
+    0x080060f0   0x080060f0   0x0000000a   Code   RO         4734    i.mbedtls_md_init   md.o
     0x080060fa   0x080060fa   0x00000002   PAD
-    0x080060fc   0x080060fc   0x0000009c   Code   RO         4732    i.mbedtls_md_setup  md.o
-    0x08006198   0x08006198   0x00000044   Code   RO         4733    i.mbedtls_md_starts  md.o
-    0x080061dc   0x080061dc   0x00000044   Code   RO         4734    i.mbedtls_md_update  md.o
-    0x08006220   0x08006220   0x000000be   Code   RO         3765    i.mbedtls_mpi_add_abs  bignum.o
-    0x080062de   0x080062de   0x00000034   Code   RO         3766    i.mbedtls_mpi_add_int  bignum.o
-    0x08006312   0x08006312   0x00000006   Code   RO         3767    i.mbedtls_mpi_add_mpi  bignum.o
-    0x08006318   0x08006318   0x00000034   Code   RO         3768    i.mbedtls_mpi_bitlen  bignum.o
-    0x0800634c   0x0800634c   0x00000078   Code   RO         3769    i.mbedtls_mpi_cmp_abs  bignum.o
-    0x080063c4   0x080063c4   0x00000030   Code   RO         3770    i.mbedtls_mpi_cmp_int  bignum.o
-    0x080063f4   0x080063f4   0x00000096   Code   RO         3771    i.mbedtls_mpi_cmp_mpi  bignum.o
-    0x0800648a   0x0800648a   0x00000078   Code   RO         3772    i.mbedtls_mpi_copy  bignum.o
-    0x08006502   0x08006502   0x0000003c   Code   RO         3773    i.mbedtls_mpi_div_int  bignum.o
-    0x0800653e   0x0800653e   0x0000030e   Code   RO         3774    i.mbedtls_mpi_div_mpi  bignum.o
-    0x0800684c   0x0800684c   0x000003f2   Code   RO         3775    i.mbedtls_mpi_exp_mod  bignum.o
-    0x08006c3e   0x08006c3e   0x00000038   Code   RO         3776    i.mbedtls_mpi_fill_random  bignum.o
-    0x08006c76   0x08006c76   0x00000024   Code   RO         3777    i.mbedtls_mpi_free  bignum.o
-    0x08006c9a   0x08006c9a   0x000000fe   Code   RO         3778    i.mbedtls_mpi_gcd   bignum.o
-    0x08006d98   0x08006d98   0x000001f4   Code   RO         3779    i.mbedtls_mpi_gen_prime  bignum.o
-    0x08006f8c   0x08006f8c   0x00000020   Code   RO         3780    i.mbedtls_mpi_get_bit  bignum.o
-    0x08006fac   0x08006fac   0x0000003c   Code   RO         3781    i.mbedtls_mpi_get_mont_r2_unsafe  bignum.o
-    0x08006fe8   0x08006fe8   0x00000054   Code   RO         3782    i.mbedtls_mpi_grow  bignum.o
-    0x0800703c   0x0800703c   0x0000000c   Code   RO         3783    i.mbedtls_mpi_init  bignum.o
-    0x08007048   0x08007048   0x00000274   Code   RO         3784    i.mbedtls_mpi_inv_mod  bignum.o
-    0x080072bc   0x080072bc   0x0000005a   Code   RO         3786    i.mbedtls_mpi_is_prime_ext  bignum.o
-    0x08007316   0x08007316   0x0000002e   Code   RO         3787    i.mbedtls_mpi_lsb   bignum.o
-    0x08007344   0x08007344   0x00000036   Code   RO         3788    i.mbedtls_mpi_lset  bignum.o
-    0x0800737a   0x0800737a   0x00000074   Code   RO         3789    i.mbedtls_mpi_mod_int  bignum.o
-    0x080073ee   0x080073ee   0x00000066   Code   RO         3790    i.mbedtls_mpi_mod_mpi  bignum.o
-    0x08007454   0x08007454   0x000000b2   Code   RO         3791    i.mbedtls_mpi_montmul  bignum.o
-    0x08007506   0x08007506   0x00000024   Code   RO         3792    i.mbedtls_mpi_montmul_init  bignum.o
-    0x0800752a   0x0800752a   0x0000005e   Code   RO         3793    i.mbedtls_mpi_mul_int  bignum.o
-    0x08007588   0x08007588   0x000000e6   Code   RO         3794    i.mbedtls_mpi_mul_mpi  bignum.o
-    0x0800766e   0x0800766e   0x00000042   Code   RO         3796    i.mbedtls_mpi_read_binary  bignum.o
-    0x080076b0   0x080076b0   0x0000003c   Code   RO         3800    i.mbedtls_mpi_resize_clear  bignum.o
-    0x080076ec   0x080076ec   0x00000054   Code   RO         4358    i.mbedtls_mpi_safe_cond_assign  constant_time.o
-    0x08007740   0x08007740   0x00000098   Code   RO         3802    i.mbedtls_mpi_shift_l  bignum.o
-    0x080077d8   0x080077d8   0x0000007e   Code   RO         3803    i.mbedtls_mpi_shift_r  bignum.o
-    0x08007856   0x08007856   0x00000074   Code   RO         3804    i.mbedtls_mpi_shrink  bignum.o
-    0x080078ca   0x080078ca   0x0000000c   Code   RO         3805    i.mbedtls_mpi_size  bignum.o
-    0x080078d6   0x080078d6   0x000000bc   Code   RO         3806    i.mbedtls_mpi_sub_abs  bignum.o
-    0x08007992   0x08007992   0x00000034   Code   RO         3807    i.mbedtls_mpi_sub_int  bignum.o
-    0x080079c6   0x080079c6   0x00000008   Code   RO         3808    i.mbedtls_mpi_sub_mpi  bignum.o
-    0x080079ce   0x080079ce   0x00000018   Code   RO         3809    i.mbedtls_mpi_swap  bignum.o
-    0x080079e6   0x080079e6   0x0000006a   Code   RO         3810    i.mbedtls_mpi_write_binary  bignum.o
-    0x08007a50   0x08007a50   0x00000124   Code   RO         3813    i.mbedtls_mpi_write_string  bignum.o
-    0x08007b74   0x08007b74   0x00000006   Code   RO         3814    i.mbedtls_mpi_zeroize  bignum.o
+    0x080060fc   0x080060fc   0x0000009c   Code   RO         4738    i.mbedtls_md_setup  md.o
+    0x08006198   0x08006198   0x00000044   Code   RO         4739    i.mbedtls_md_starts  md.o
+    0x080061dc   0x080061dc   0x00000044   Code   RO         4740    i.mbedtls_md_update  md.o
+    0x08006220   0x08006220   0x000000be   Code   RO         3771    i.mbedtls_mpi_add_abs  bignum.o
+    0x080062de   0x080062de   0x00000034   Code   RO         3772    i.mbedtls_mpi_add_int  bignum.o
+    0x08006312   0x08006312   0x00000006   Code   RO         3773    i.mbedtls_mpi_add_mpi  bignum.o
+    0x08006318   0x08006318   0x00000034   Code   RO         3774    i.mbedtls_mpi_bitlen  bignum.o
+    0x0800634c   0x0800634c   0x00000078   Code   RO         3775    i.mbedtls_mpi_cmp_abs  bignum.o
+    0x080063c4   0x080063c4   0x00000030   Code   RO         3776    i.mbedtls_mpi_cmp_int  bignum.o
+    0x080063f4   0x080063f4   0x00000096   Code   RO         3777    i.mbedtls_mpi_cmp_mpi  bignum.o
+    0x0800648a   0x0800648a   0x00000078   Code   RO         3778    i.mbedtls_mpi_copy  bignum.o
+    0x08006502   0x08006502   0x0000003c   Code   RO         3779    i.mbedtls_mpi_div_int  bignum.o
+    0x0800653e   0x0800653e   0x0000030e   Code   RO         3780    i.mbedtls_mpi_div_mpi  bignum.o
+    0x0800684c   0x0800684c   0x000003f2   Code   RO         3781    i.mbedtls_mpi_exp_mod  bignum.o
+    0x08006c3e   0x08006c3e   0x00000038   Code   RO         3782    i.mbedtls_mpi_fill_random  bignum.o
+    0x08006c76   0x08006c76   0x00000024   Code   RO         3783    i.mbedtls_mpi_free  bignum.o
+    0x08006c9a   0x08006c9a   0x000000fe   Code   RO         3784    i.mbedtls_mpi_gcd   bignum.o
+    0x08006d98   0x08006d98   0x000001f4   Code   RO         3785    i.mbedtls_mpi_gen_prime  bignum.o
+    0x08006f8c   0x08006f8c   0x00000020   Code   RO         3786    i.mbedtls_mpi_get_bit  bignum.o
+    0x08006fac   0x08006fac   0x0000003c   Code   RO         3787    i.mbedtls_mpi_get_mont_r2_unsafe  bignum.o
+    0x08006fe8   0x08006fe8   0x00000054   Code   RO         3788    i.mbedtls_mpi_grow  bignum.o
+    0x0800703c   0x0800703c   0x0000000c   Code   RO         3789    i.mbedtls_mpi_init  bignum.o
+    0x08007048   0x08007048   0x00000274   Code   RO         3790    i.mbedtls_mpi_inv_mod  bignum.o
+    0x080072bc   0x080072bc   0x0000005a   Code   RO         3792    i.mbedtls_mpi_is_prime_ext  bignum.o
+    0x08007316   0x08007316   0x0000002e   Code   RO         3793    i.mbedtls_mpi_lsb   bignum.o
+    0x08007344   0x08007344   0x00000036   Code   RO         3794    i.mbedtls_mpi_lset  bignum.o
+    0x0800737a   0x0800737a   0x00000074   Code   RO         3795    i.mbedtls_mpi_mod_int  bignum.o
+    0x080073ee   0x080073ee   0x00000066   Code   RO         3796    i.mbedtls_mpi_mod_mpi  bignum.o
+    0x08007454   0x08007454   0x000000b2   Code   RO         3797    i.mbedtls_mpi_montmul  bignum.o
+    0x08007506   0x08007506   0x00000024   Code   RO         3798    i.mbedtls_mpi_montmul_init  bignum.o
+    0x0800752a   0x0800752a   0x0000005e   Code   RO         3799    i.mbedtls_mpi_mul_int  bignum.o
+    0x08007588   0x08007588   0x000000e6   Code   RO         3800    i.mbedtls_mpi_mul_mpi  bignum.o
+    0x0800766e   0x0800766e   0x00000042   Code   RO         3802    i.mbedtls_mpi_read_binary  bignum.o
+    0x080076b0   0x080076b0   0x0000003c   Code   RO         3806    i.mbedtls_mpi_resize_clear  bignum.o
+    0x080076ec   0x080076ec   0x00000054   Code   RO         4364    i.mbedtls_mpi_safe_cond_assign  constant_time.o
+    0x08007740   0x08007740   0x00000098   Code   RO         3808    i.mbedtls_mpi_shift_l  bignum.o
+    0x080077d8   0x080077d8   0x0000007e   Code   RO         3809    i.mbedtls_mpi_shift_r  bignum.o
+    0x08007856   0x08007856   0x00000074   Code   RO         3810    i.mbedtls_mpi_shrink  bignum.o
+    0x080078ca   0x080078ca   0x0000000c   Code   RO         3811    i.mbedtls_mpi_size  bignum.o
+    0x080078d6   0x080078d6   0x000000bc   Code   RO         3812    i.mbedtls_mpi_sub_abs  bignum.o
+    0x08007992   0x08007992   0x00000034   Code   RO         3813    i.mbedtls_mpi_sub_int  bignum.o
+    0x080079c6   0x080079c6   0x00000008   Code   RO         3814    i.mbedtls_mpi_sub_mpi  bignum.o
+    0x080079ce   0x080079ce   0x00000018   Code   RO         3815    i.mbedtls_mpi_swap  bignum.o
+    0x080079e6   0x080079e6   0x0000006a   Code   RO         3816    i.mbedtls_mpi_write_binary  bignum.o
+    0x08007a50   0x08007a50   0x00000124   Code   RO         3819    i.mbedtls_mpi_write_string  bignum.o
+    0x08007b74   0x08007b74   0x00000006   Code   RO         3820    i.mbedtls_mpi_zeroize  bignum.o
     0x08007b7a   0x08007b7a   0x00000002   PAD
-    0x08007b7c   0x08007b7c   0x0000002c   Code   RO         5006    i.mbedtls_oid_get_oid_by_md  oid.o
-    0x08007ba8   0x08007ba8   0x00000018   Code   RO         5009    i.mbedtls_oid_get_pk_alg  oid.o
-    0x08007bc0   0x08007bc0   0x00000028   Code   RO         5150    i.mbedtls_pem_free  pem.o
-    0x08007be8   0x08007be8   0x0000000a   Code   RO         5151    i.mbedtls_pem_init  pem.o
+    0x08007b7c   0x08007b7c   0x0000002c   Code   RO         5012    i.mbedtls_oid_get_oid_by_md  oid.o
+    0x08007ba8   0x08007ba8   0x00000018   Code   RO         5015    i.mbedtls_oid_get_pk_alg  oid.o
+    0x08007bc0   0x08007bc0   0x00000028   Code   RO         5156    i.mbedtls_pem_free  pem.o
+    0x08007be8   0x08007be8   0x0000000a   Code   RO         5157    i.mbedtls_pem_init  pem.o
     0x08007bf2   0x08007bf2   0x00000002   PAD
-    0x08007bf4   0x08007bf4   0x0000012c   Code   RO         5152    i.mbedtls_pem_read_buffer  pem.o
-    0x08007d20   0x08007d20   0x00000022   Code   RO         5194    i.mbedtls_pk_free   pk.o
-    0x08007d42   0x08007d42   0x00000010   Code   RO         5198    i.mbedtls_pk_get_type  pk.o
+    0x08007bf4   0x08007bf4   0x0000012c   Code   RO         5158    i.mbedtls_pem_read_buffer  pem.o
+    0x08007d20   0x08007d20   0x00000022   Code   RO         5200    i.mbedtls_pk_free   pk.o
+    0x08007d42   0x08007d42   0x00000010   Code   RO         5204    i.mbedtls_pk_get_type  pk.o
     0x08007d52   0x08007d52   0x00000002   PAD
-    0x08007d54   0x08007d54   0x00000010   Code   RO         5199    i.mbedtls_pk_info_from_type  pk.o
-    0x08007d64   0x08007d64   0x00000008   Code   RO         5200    i.mbedtls_pk_init   pk.o
-    0x08007d6c   0x08007d6c   0x000001b8   Code   RO         5406    i.mbedtls_pk_parse_key  pkparse.o
-    0x08007f24   0x08007f24   0x000001dc   Code   RO         5408    i.mbedtls_pk_parse_public_key  pkparse.o
-    0x08008100   0x08008100   0x000000b8   Code   RO         5410    i.mbedtls_pk_parse_subpubkey  pkparse.o
-    0x080081b8   0x080081b8   0x00000014   Code   RO         5411    i.mbedtls_pk_rsa    pkparse.o
-    0x080081cc   0x080081cc   0x0000002c   Code   RO         5201    i.mbedtls_pk_setup  pk.o
-    0x080081f8   0x080081f8   0x00000014   Code   RO         5543    i.mbedtls_platform_zeroize  platform_util.o
-    0x0800820c   0x0800820c   0x00000074   Code   RO         5807    i.mbedtls_rsa_check_privkey  rsa.o
-    0x08008280   0x08008280   0x00000044   Code   RO         5808    i.mbedtls_rsa_check_pub_priv  rsa.o
-    0x080082c4   0x080082c4   0x00000058   Code   RO         5809    i.mbedtls_rsa_check_pubkey  rsa.o
-    0x0800831c   0x0800831c   0x000001c4   Code   RO         5810    i.mbedtls_rsa_complete  rsa.o
-    0x080084e0   0x080084e0   0x0000007c   Code   RO         6032    i.mbedtls_rsa_deduce_crt  rsa_internal.o
-    0x0800855c   0x0800855c   0x000001f4   Code   RO         6033    i.mbedtls_rsa_deduce_primes  rsa_internal.o
-    0x08008750   0x08008750   0x000000c0   Code   RO         6034    i.mbedtls_rsa_deduce_private_exponent  rsa_internal.o
-    0x08008810   0x08008810   0x000000c0   Code   RO         5812    i.mbedtls_rsa_export  rsa.o
-    0x080088d0   0x080088d0   0x00000076   Code   RO         5815    i.mbedtls_rsa_free  rsa.o
+    0x08007d54   0x08007d54   0x00000010   Code   RO         5205    i.mbedtls_pk_info_from_type  pk.o
+    0x08007d64   0x08007d64   0x00000008   Code   RO         5206    i.mbedtls_pk_init   pk.o
+    0x08007d6c   0x08007d6c   0x000001b8   Code   RO         5412    i.mbedtls_pk_parse_key  pkparse.o
+    0x08007f24   0x08007f24   0x000001dc   Code   RO         5414    i.mbedtls_pk_parse_public_key  pkparse.o
+    0x08008100   0x08008100   0x000000b8   Code   RO         5416    i.mbedtls_pk_parse_subpubkey  pkparse.o
+    0x080081b8   0x080081b8   0x00000014   Code   RO         5417    i.mbedtls_pk_rsa    pkparse.o
+    0x080081cc   0x080081cc   0x0000002c   Code   RO         5207    i.mbedtls_pk_setup  pk.o
+    0x080081f8   0x080081f8   0x00000014   Code   RO         5549    i.mbedtls_platform_zeroize  platform_util.o
+    0x0800820c   0x0800820c   0x00000074   Code   RO         5813    i.mbedtls_rsa_check_privkey  rsa.o
+    0x08008280   0x08008280   0x00000044   Code   RO         5814    i.mbedtls_rsa_check_pub_priv  rsa.o
+    0x080082c4   0x080082c4   0x00000058   Code   RO         5815    i.mbedtls_rsa_check_pubkey  rsa.o
+    0x0800831c   0x0800831c   0x000001c4   Code   RO         5816    i.mbedtls_rsa_complete  rsa.o
+    0x080084e0   0x080084e0   0x0000007c   Code   RO         6038    i.mbedtls_rsa_deduce_crt  rsa_internal.o
+    0x0800855c   0x0800855c   0x000001f4   Code   RO         6039    i.mbedtls_rsa_deduce_primes  rsa_internal.o
+    0x08008750   0x08008750   0x000000c0   Code   RO         6040    i.mbedtls_rsa_deduce_private_exponent  rsa_internal.o
+    0x08008810   0x08008810   0x000000c0   Code   RO         5818    i.mbedtls_rsa_export  rsa.o
+    0x080088d0   0x080088d0   0x00000076   Code   RO         5821    i.mbedtls_rsa_free  rsa.o
     0x08008946   0x08008946   0x00000002   PAD
-    0x08008948   0x08008948   0x000001cc   Code   RO         5816    i.mbedtls_rsa_gen_key  rsa.o
-    0x08008b14   0x08008b14   0x00000004   Code   RO         5817    i.mbedtls_rsa_get_len  rsa.o
-    0x08008b18   0x08008b18   0x0000007c   Code   RO         5818    i.mbedtls_rsa_import  rsa.o
-    0x08008b94   0x08008b94   0x0000008e   Code   RO         5819    i.mbedtls_rsa_import_raw  rsa.o
-    0x08008c22   0x08008c22   0x0000001e   Code   RO         5820    i.mbedtls_rsa_init  rsa.o
-    0x08008c40   0x08008c40   0x0000003c   Code   RO         5821    i.mbedtls_rsa_pkcs1_decrypt  rsa.o
-    0x08008c7c   0x08008c7c   0x0000003c   Code   RO         5822    i.mbedtls_rsa_pkcs1_encrypt  rsa.o
-    0x08008cb8   0x08008cb8   0x00000038   Code   RO         5823    i.mbedtls_rsa_pkcs1_sign  rsa.o
-    0x08008cf0   0x08008cf0   0x00000038   Code   RO         5824    i.mbedtls_rsa_pkcs1_verify  rsa.o
-    0x08008d28   0x08008d28   0x00000268   Code   RO         5825    i.mbedtls_rsa_private  rsa.o
-    0x08008f90   0x08008f90   0x00000088   Code   RO         5826    i.mbedtls_rsa_public  rsa.o
-    0x08009018   0x08009018   0x000001a8   Code   RO         5827    i.mbedtls_rsa_rsaes_oaep_decrypt  rsa.o
-    0x080091c0   0x080091c0   0x0000012c   Code   RO         5828    i.mbedtls_rsa_rsaes_oaep_encrypt  rsa.o
-    0x080092ec   0x080092ec   0x00000088   Code   RO         5829    i.mbedtls_rsa_rsaes_pkcs1_v15_decrypt  rsa.o
-    0x08009374   0x08009374   0x000000dc   Code   RO         5830    i.mbedtls_rsa_rsaes_pkcs1_v15_encrypt  rsa.o
-    0x08009450   0x08009450   0x000000dc   Code   RO         5831    i.mbedtls_rsa_rsassa_pkcs1_v15_sign  rsa.o
-    0x0800952c   0x0800952c   0x000000c4   Code   RO         5832    i.mbedtls_rsa_rsassa_pkcs1_v15_verify  rsa.o
-    0x080095f0   0x080095f0   0x00000022   Code   RO         5833    i.mbedtls_rsa_rsassa_pss_sign  rsa.o
-    0x08009612   0x08009612   0x00000034   Code   RO         5835    i.mbedtls_rsa_rsassa_pss_verify  rsa.o
+    0x08008948   0x08008948   0x000001cc   Code   RO         5822    i.mbedtls_rsa_gen_key  rsa.o
+    0x08008b14   0x08008b14   0x00000004   Code   RO         5823    i.mbedtls_rsa_get_len  rsa.o
+    0x08008b18   0x08008b18   0x0000007c   Code   RO         5824    i.mbedtls_rsa_import  rsa.o
+    0x08008b94   0x08008b94   0x0000008e   Code   RO         5825    i.mbedtls_rsa_import_raw  rsa.o
+    0x08008c22   0x08008c22   0x0000001e   Code   RO         5826    i.mbedtls_rsa_init  rsa.o
+    0x08008c40   0x08008c40   0x0000003c   Code   RO         5827    i.mbedtls_rsa_pkcs1_decrypt  rsa.o
+    0x08008c7c   0x08008c7c   0x0000003c   Code   RO         5828    i.mbedtls_rsa_pkcs1_encrypt  rsa.o
+    0x08008cb8   0x08008cb8   0x00000038   Code   RO         5829    i.mbedtls_rsa_pkcs1_sign  rsa.o
+    0x08008cf0   0x08008cf0   0x00000038   Code   RO         5830    i.mbedtls_rsa_pkcs1_verify  rsa.o
+    0x08008d28   0x08008d28   0x00000268   Code   RO         5831    i.mbedtls_rsa_private  rsa.o
+    0x08008f90   0x08008f90   0x00000088   Code   RO         5832    i.mbedtls_rsa_public  rsa.o
+    0x08009018   0x08009018   0x000001a8   Code   RO         5833    i.mbedtls_rsa_rsaes_oaep_decrypt  rsa.o
+    0x080091c0   0x080091c0   0x0000012c   Code   RO         5834    i.mbedtls_rsa_rsaes_oaep_encrypt  rsa.o
+    0x080092ec   0x080092ec   0x00000088   Code   RO         5835    i.mbedtls_rsa_rsaes_pkcs1_v15_decrypt  rsa.o
+    0x08009374   0x08009374   0x000000dc   Code   RO         5836    i.mbedtls_rsa_rsaes_pkcs1_v15_encrypt  rsa.o
+    0x08009450   0x08009450   0x000000dc   Code   RO         5837    i.mbedtls_rsa_rsassa_pkcs1_v15_sign  rsa.o
+    0x0800952c   0x0800952c   0x000000c4   Code   RO         5838    i.mbedtls_rsa_rsassa_pkcs1_v15_verify  rsa.o
+    0x080095f0   0x080095f0   0x00000022   Code   RO         5839    i.mbedtls_rsa_rsassa_pss_sign  rsa.o
+    0x08009612   0x08009612   0x00000034   Code   RO         5841    i.mbedtls_rsa_rsassa_pss_verify  rsa.o
     0x08009646   0x08009646   0x00000002   PAD
-    0x08009648   0x08009648   0x000001e4   Code   RO         5836    i.mbedtls_rsa_rsassa_pss_verify_ext  rsa.o
-    0x0800982c   0x0800982c   0x00000008   Code   RO         5837    i.mbedtls_rsa_set_padding  rsa.o
-    0x08009834   0x08009834   0x000002c4   Code   RO         3278    i.mbedtls_rsa_sign_test  app_rsa.o
-    0x08009af8   0x08009af8   0x00000128   Code   RO         6035    i.mbedtls_rsa_validate_crt  rsa_internal.o
-    0x08009c20   0x08009c20   0x000001ac   Code   RO         6036    i.mbedtls_rsa_validate_params  rsa_internal.o
-    0x08009dcc   0x08009dcc   0x00000004   Code   RO         6069    i.mbedtls_sha1      sha1.o
-    0x08009dd0   0x08009dd0   0x000000f8   Code   RO         6072    i.mbedtls_sha1_finish_ret  sha1.o
-    0x08009ec8   0x08009ec8   0x0000000c   Code   RO         6073    i.mbedtls_sha1_free  sha1.o
-    0x08009ed4   0x08009ed4   0x00000006   Code   RO         6074    i.mbedtls_sha1_init  sha1.o
-    0x08009eda   0x08009eda   0x0000003e   Code   RO         6076    i.mbedtls_sha1_ret  sha1.o
-    0x08009f18   0x08009f18   0x00000030   Code   RO         6078    i.mbedtls_sha1_starts_ret  sha1.o
-    0x08009f48   0x08009f48   0x0000007c   Code   RO         6080    i.mbedtls_sha1_update_ret  sha1.o
-    0x08009fc4   0x08009fc4   0x00000148   Code   RO         6156    i.mbedtls_sha256_finish_ret  sha256.o
-    0x0800a10c   0x0800a10c   0x0000000c   Code   RO         6157    i.mbedtls_sha256_free  sha256.o
-    0x0800a118   0x0800a118   0x00000006   Code   RO         6158    i.mbedtls_sha256_init  sha256.o
-    0x0800a11e   0x0800a11e   0x00000042   Code   RO         6160    i.mbedtls_sha256_ret  sha256.o
-    0x0800a160   0x0800a160   0x00000094   Code   RO         6162    i.mbedtls_sha256_starts_ret  sha256.o
-    0x0800a1f4   0x0800a1f4   0x0000007c   Code   RO         6164    i.mbedtls_sha256_update_ret  sha256.o
-    0x0800a270   0x0800a270   0x000000a4   Code   RO         5838    i.mgf_mask          rsa.o
-    0x0800a314   0x0800a314   0x0000002a   Code   RO         3815    i.mpi_bigendian_to_host  bignum.o
+    0x08009648   0x08009648   0x000001e4   Code   RO         5842    i.mbedtls_rsa_rsassa_pss_verify_ext  rsa.o
+    0x0800982c   0x0800982c   0x00000008   Code   RO         5843    i.mbedtls_rsa_set_padding  rsa.o
+    0x08009834   0x08009834   0x000002c4   Code   RO         3279    i.mbedtls_rsa_sign_test  app_rsa.o
+    0x08009af8   0x08009af8   0x00000128   Code   RO         6041    i.mbedtls_rsa_validate_crt  rsa_internal.o
+    0x08009c20   0x08009c20   0x000001ac   Code   RO         6042    i.mbedtls_rsa_validate_params  rsa_internal.o
+    0x08009dcc   0x08009dcc   0x00000004   Code   RO         6075    i.mbedtls_sha1      sha1.o
+    0x08009dd0   0x08009dd0   0x000000f8   Code   RO         6078    i.mbedtls_sha1_finish_ret  sha1.o
+    0x08009ec8   0x08009ec8   0x0000000c   Code   RO         6079    i.mbedtls_sha1_free  sha1.o
+    0x08009ed4   0x08009ed4   0x00000006   Code   RO         6080    i.mbedtls_sha1_init  sha1.o
+    0x08009eda   0x08009eda   0x0000003e   Code   RO         6082    i.mbedtls_sha1_ret  sha1.o
+    0x08009f18   0x08009f18   0x00000030   Code   RO         6084    i.mbedtls_sha1_starts_ret  sha1.o
+    0x08009f48   0x08009f48   0x0000007c   Code   RO         6086    i.mbedtls_sha1_update_ret  sha1.o
+    0x08009fc4   0x08009fc4   0x00000148   Code   RO         6162    i.mbedtls_sha256_finish_ret  sha256.o
+    0x0800a10c   0x0800a10c   0x0000000c   Code   RO         6163    i.mbedtls_sha256_free  sha256.o
+    0x0800a118   0x0800a118   0x00000006   Code   RO         6164    i.mbedtls_sha256_init  sha256.o
+    0x0800a11e   0x0800a11e   0x00000042   Code   RO         6166    i.mbedtls_sha256_ret  sha256.o
+    0x0800a160   0x0800a160   0x00000094   Code   RO         6168    i.mbedtls_sha256_starts_ret  sha256.o
+    0x0800a1f4   0x0800a1f4   0x0000007c   Code   RO         6170    i.mbedtls_sha256_update_ret  sha256.o
+    0x0800a270   0x0800a270   0x000000a4   Code   RO         5844    i.mgf_mask          rsa.o
+    0x0800a314   0x0800a314   0x0000002a   Code   RO         3821    i.mpi_bigendian_to_host  bignum.o
     0x0800a33e   0x0800a33e   0x00000002   PAD
-    0x0800a340   0x0800a340   0x00000054   Code   RO         3816    i.mpi_check_small_factors  bignum.o
-    0x0800a394   0x0800a394   0x0000005a   Code   RO         3817    i.mpi_fill_random_internal  bignum.o
-    0x0800a3ee   0x0800a3ee   0x00000176   Code   RO         3819    i.mpi_miller_rabin  bignum.o
-    0x0800a564   0x0800a564   0x00000022   Code   RO         3820    i.mpi_montred       bignum.o
-    0x0800a586   0x0800a586   0x000003f2   Code   RO         3821    i.mpi_mul_hlp       bignum.o
-    0x0800a978   0x0800a978   0x0000003a   Code   RO         3822    i.mpi_select        bignum.o
-    0x0800a9b2   0x0800a9b2   0x00000008   Code   RO         3823    i.mpi_sint_abs      bignum.o
-    0x0800a9ba   0x0800a9ba   0x00000038   Code   RO         3824    i.mpi_sub_hlp       bignum.o
-    0x0800a9f2   0x0800a9f2   0x00000004   Code   RO         3825    i.mpi_uint_bigendian_to_host  bignum.o
-    0x0800a9f6   0x0800a9f6   0x0000001c   Code   RO         3826    i.mpi_uint_bigendian_to_host_c  bignum.o
-    0x0800aa12   0x0800aa12   0x00000074   Code   RO         3827    i.mpi_write_hlp     bignum.o
+    0x0800a340   0x0800a340   0x00000054   Code   RO         3822    i.mpi_check_small_factors  bignum.o
+    0x0800a394   0x0800a394   0x0000005a   Code   RO         3823    i.mpi_fill_random_internal  bignum.o
+    0x0800a3ee   0x0800a3ee   0x00000176   Code   RO         3825    i.mpi_miller_rabin  bignum.o
+    0x0800a564   0x0800a564   0x00000022   Code   RO         3826    i.mpi_montred       bignum.o
+    0x0800a586   0x0800a586   0x000003f2   Code   RO         3827    i.mpi_mul_hlp       bignum.o
+    0x0800a978   0x0800a978   0x0000003a   Code   RO         3828    i.mpi_select        bignum.o
+    0x0800a9b2   0x0800a9b2   0x00000008   Code   RO         3829    i.mpi_sint_abs      bignum.o
+    0x0800a9ba   0x0800a9ba   0x00000038   Code   RO         3830    i.mpi_sub_hlp       bignum.o
+    0x0800a9f2   0x0800a9f2   0x00000004   Code   RO         3831    i.mpi_uint_bigendian_to_host  bignum.o
+    0x0800a9f6   0x0800a9f6   0x0000001c   Code   RO         3832    i.mpi_uint_bigendian_to_host_c  bignum.o
+    0x0800aa12   0x0800aa12   0x00000074   Code   RO         3833    i.mpi_write_hlp     bignum.o
     0x0800aa86   0x0800aa86   0x00000002   PAD
-    0x0800aa88   0x0800aa88   0x00000038   Code   RO         5018    i.oid_pk_alg_from_asn1  oid.o
-    0x0800aac0   0x0800aac0   0x00000050   Code   RO         5412    i.pk_get_pk_alg     pkparse.o
-    0x0800ab10   0x0800ab10   0x000000e0   Code   RO         5413    i.pk_get_rsapubkey  pkparse.o
-    0x0800abf0   0x0800abf0   0x000001a8   Code   RO         5414    i.pk_parse_key_pkcs1_der  pkparse.o
-    0x0800ad98   0x0800ad98   0x000000c4   Code   RO         5415    i.pk_parse_key_pkcs8_unencrypted_der  pkparse.o
-    0x0800ae5c   0x0800ae5c   0x0000001c   Code   RO         5314    i.rsa_alloc_wrap    pk_wrap.o
-    0x0800ae78   0x0800ae78   0x00000010   Code   RO         5315    i.rsa_can_do        pk_wrap.o
-    0x0800ae88   0x0800ae88   0x000000cc   Code   RO         5839    i.rsa_check_context  rsa.o
-    0x0800af54   0x0800af54   0x00000004   Code   RO         5316    i.rsa_check_pair_wrap  pk_wrap.o
-    0x0800af58   0x0800af58   0x0000002c   Code   RO         5317    i.rsa_debug         pk_wrap.o
-    0x0800af84   0x0800af84   0x000005a4   Code   RO         3279    i.rsa_decrypt       app_rsa.o
-    0x0800b528   0x0800b528   0x00000040   Code   RO         5318    i.rsa_decrypt_wrap  pk_wrap.o
-    0x0800b568   0x0800b568   0x0000026c   Code   RO         3280    i.rsa_encrypt       app_rsa.o
-    0x0800b7d4   0x0800b7d4   0x00000040   Code   RO         5319    i.rsa_encrypt_wrap  pk_wrap.o
-    0x0800b814   0x0800b814   0x00000014   Code   RO         5320    i.rsa_free_wrap     pk_wrap.o
-    0x0800b828   0x0800b828   0x0000003e   Code   RO         5321    i.rsa_get_bitlen    pk_wrap.o
-    0x0800b866   0x0800b866   0x00000002   PAD
-    0x0800b868   0x0800b868   0x00000104   Code   RO         5840    i.rsa_prepare_blinding  rsa.o
-    0x0800b96c   0x0800b96c   0x00000130   Code   RO         5841    i.rsa_rsassa_pkcs1_v15_encode  rsa.o
-    0x0800ba9c   0x0800ba9c   0x000001b4   Code   RO         5842    i.rsa_rsassa_pss_sign  rsa.o
-    0x0800bc50   0x0800bc50   0x00000038   Code   RO         5322    i.rsa_sign_wrap     pk_wrap.o
-    0x0800bc88   0x0800bc88   0x0000008a   Code   RO         5843    i.rsa_unblind       rsa.o
-    0x0800bd12   0x0800bd12   0x00000002   PAD
-    0x0800bd14   0x0800bd14   0x00000050   Code   RO         5323    i.rsa_verify_wrap   pk_wrap.o
-    0x0800bd64   0x0800bd64   0x0000003f   Data   RO         3283    .constdata          app_rsa.o
-    0x0800bda3   0x0800bda3   0x00000001   PAD
-    0x0800bda4   0x0800bda4   0x00002228   Data   RO         3403    .constdata          aes.o
-    0x0800dfcc   0x0800dfcc   0x000002a0   Data   RO         3828    .constdata          bignum.o
-    0x0800e26c   0x0800e26c   0x00000034   Data   RO         4735    .constdata          md.o
-    0x0800e2a0   0x0800e2a0   0x00000488   Data   RO         5022    .constdata          oid.o
-    0x0800e728   0x0800e728   0x00000030   Data   RO         5324    .constdata          pk_wrap.o
-    0x0800e758   0x0800e758   0x00000100   Data   RO         6165    .constdata          sha256.o
-    0x0800e858   0x0800e858   0x00000a95   Data   RO         3284    .conststring        app_rsa.o
-    0x0800f2ed   0x0800f2ed   0x00000003   PAD
-    0x0800f2f0   0x0800f2f0   0x00000004   Data   RO         4736    .conststring        md.o
-    0x0800f2f4   0x0800f2f4   0x000008db   Data   RO         5023    .conststring        oid.o
-    0x0800fbcf   0x0800fbcf   0x00000001   PAD
-    0x0800fbd0   0x0800fbd0   0x00000005   Data   RO         5024    .conststrlit        oid.o
-    0x0800fbd5   0x0800fbd5   0x00000003   PAD
-    0x0800fbd8   0x0800fbd8   0x00000020   Data   RO         6778    Region$$Table       anon$$obj.o
+    0x0800aa88   0x0800aa88   0x00000038   Code   RO         5024    i.oid_pk_alg_from_asn1  oid.o
+    0x0800aac0   0x0800aac0   0x00000050   Code   RO         5418    i.pk_get_pk_alg     pkparse.o
+    0x0800ab10   0x0800ab10   0x000000e0   Code   RO         5419    i.pk_get_rsapubkey  pkparse.o
+    0x0800abf0   0x0800abf0   0x000001a8   Code   RO         5420    i.pk_parse_key_pkcs1_der  pkparse.o
+    0x0800ad98   0x0800ad98   0x000000c4   Code   RO         5421    i.pk_parse_key_pkcs8_unencrypted_der  pkparse.o
+    0x0800ae5c   0x0800ae5c   0x0000001c   Code   RO         5320    i.rsa_alloc_wrap    pk_wrap.o
+    0x0800ae78   0x0800ae78   0x00000010   Code   RO         5321    i.rsa_can_do        pk_wrap.o
+    0x0800ae88   0x0800ae88   0x000000cc   Code   RO         5845    i.rsa_check_context  rsa.o
+    0x0800af54   0x0800af54   0x00000004   Code   RO         5322    i.rsa_check_pair_wrap  pk_wrap.o
+    0x0800af58   0x0800af58   0x0000002c   Code   RO         5323    i.rsa_debug         pk_wrap.o
+    0x0800af84   0x0800af84   0x00000638   Code   RO         3280    i.rsa_decrypt       app_rsa.o
+    0x0800b5bc   0x0800b5bc   0x00000040   Code   RO         5324    i.rsa_decrypt_wrap  pk_wrap.o
+    0x0800b5fc   0x0800b5fc   0x0000026c   Code   RO         3281    i.rsa_encrypt       app_rsa.o
+    0x0800b868   0x0800b868   0x00000040   Code   RO         5325    i.rsa_encrypt_wrap  pk_wrap.o
+    0x0800b8a8   0x0800b8a8   0x00000014   Code   RO         5326    i.rsa_free_wrap     pk_wrap.o
+    0x0800b8bc   0x0800b8bc   0x0000003e   Code   RO         5327    i.rsa_get_bitlen    pk_wrap.o
+    0x0800b8fa   0x0800b8fa   0x00000002   PAD
+    0x0800b8fc   0x0800b8fc   0x00000104   Code   RO         5846    i.rsa_prepare_blinding  rsa.o
+    0x0800ba00   0x0800ba00   0x00000130   Code   RO         5847    i.rsa_rsassa_pkcs1_v15_encode  rsa.o
+    0x0800bb30   0x0800bb30   0x000001b4   Code   RO         5848    i.rsa_rsassa_pss_sign  rsa.o
+    0x0800bce4   0x0800bce4   0x00000038   Code   RO         5328    i.rsa_sign_wrap     pk_wrap.o
+    0x0800bd1c   0x0800bd1c   0x0000008a   Code   RO         5849    i.rsa_unblind       rsa.o
+    0x0800bda6   0x0800bda6   0x00000002   PAD
+    0x0800bda8   0x0800bda8   0x00000050   Code   RO         5329    i.rsa_verify_wrap   pk_wrap.o
+    0x0800bdf8   0x0800bdf8   0x0000003f   Data   RO         3284    .constdata          app_rsa.o
+    0x0800be37   0x0800be37   0x00000001   PAD
+    0x0800be38   0x0800be38   0x00002228   Data   RO         3409    .constdata          aes.o
+    0x0800e060   0x0800e060   0x000002a0   Data   RO         3834    .constdata          bignum.o
+    0x0800e300   0x0800e300   0x00000034   Data   RO         4741    .constdata          md.o
+    0x0800e334   0x0800e334   0x00000488   Data   RO         5028    .constdata          oid.o
+    0x0800e7bc   0x0800e7bc   0x00000030   Data   RO         5330    .constdata          pk_wrap.o
+    0x0800e7ec   0x0800e7ec   0x00000100   Data   RO         6171    .constdata          sha256.o
+    0x0800e8ec   0x0800e8ec   0x0000051d   Data   RO         3285    .conststring        app_rsa.o
+    0x0800ee09   0x0800ee09   0x00000003   PAD
+    0x0800ee0c   0x0800ee0c   0x00000004   Data   RO         4742    .conststring        md.o
+    0x0800ee10   0x0800ee10   0x000008db   Data   RO         5029    .conststring        oid.o
+    0x0800f6eb   0x0800f6eb   0x00000001   PAD
+    0x0800f6ec   0x0800f6ec   0x00000005   Data   RO         5030    .conststrlit        oid.o
+    0x0800f6f1   0x0800f6f1   0x00000003   PAD
+    0x0800f6f4   0x0800f6f4   0x00000020   Data   RO         6784    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0800fbf8, Size: 0x000083a8, Max: 0x00020000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0800f714, Size: 0x000083a8, Max: 0x00020000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x0800fbf8   0x00000014   Data   RW         1728    .data               stm32f10x_rcc.o
-    0x20000014   0x0800fc0c   0x00000003   Data   RW         3212    .data               bsp_usart.o
-    0x20000017   0x0800fc0f   0x00000001   PAD
-    0x20000018   0x0800fc10   0x00000010   Data   RW         3286    .data               app_rsa.o
-    0x20000028   0x0800fc20   0x00000004   Data   RW         5544    .data               platform_util.o
-    0x2000002c   0x0800fc24   0x00000004   Data   RW         6409    .data               mc_w.l(stdout.o)
-    0x20000030   0x0800fc28   0x00000004   Data   RW         6413    .data               mc_w.l(rand.o)
-    0x20000034   0x0800fc2c   0x00000004   Data   RW         6757    .data               mc_w.l(mvars.o)
-    0x20000038   0x0800fc30   0x00000004   Data   RW         6758    .data               mc_w.l(mvars.o)
+    0x20000000   0x0800f714   0x00000014   Data   RW         1728    .data               stm32f10x_rcc.o
+    0x20000014   0x0800f728   0x00000003   Data   RW         3212    .data               bsp_usart.o
+    0x20000017   0x0800f72b   0x00000001   PAD
+    0x20000018   0x0800f72c   0x00000010   Data   RW         3287    .data               app_rsa.o
+    0x20000028   0x0800f73c   0x00000004   Data   RW         5550    .data               platform_util.o
+    0x2000002c   0x0800f740   0x00000004   Data   RW         6415    .data               mc_w.l(stdout.o)
+    0x20000030   0x0800f744   0x00000004   Data   RW         6419    .data               mc_w.l(rand.o)
+    0x20000034   0x0800f748   0x00000004   Data   RW         6763    .data               mc_w.l(mvars.o)
+    0x20000038   0x0800f74c   0x00000004   Data   RW         6764    .data               mc_w.l(mvars.o)
     0x2000003c        -       0x00000064   Zero   RW         3211    .bss                bsp_usart.o
-    0x200000a0        -       0x00002304   Zero   RW         3282    .bss                app_rsa.o
-    0x200023a4   0x0800fc34   0x00000004   PAD
+    0x200000a0        -       0x00002304   Zero   RW         3283    .bss                app_rsa.o
+    0x200023a4   0x0800f750   0x00000004   PAD
     0x200023a8        -       0x00003000   Zero   RW            2    HEAP                startup_stm32f10x_hd.o
     0x200053a8        -       0x00003000   Zero   RW            1    STACK               startup_stm32f10x_hd.o
 
@@ -3468,7 +3483,7 @@ Image component sizes
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
       2894         22       8744          0          0      18933   aes.o
-      3372       1672       2772         16       8964      20035   app_rsa.o
+      3520       1746       1372         16       8964      20119   app_rsa.o
        604          0          0          0          0       9001   asn1parse.o
        588          0          0          0          0       3424   base64.o
       8504         34        672          0          0      51434   bignum.o
@@ -3498,7 +3513,7 @@ Image component sizes
        260         26          0          0          0     234573   system_stm32f10x.o
 
     ----------------------------------------------------------------------
-     44096       2836      16324         44      33644     527493   Object Totals
+     44244       2910      14924         44      33644     527577   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         36          0          8          1          4          0   (incl. Padding)
 
@@ -3561,15 +3576,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     48180       2972      16324         60      33644     516513   Grand Totals
-     48180       2972      16324         60      33644     516513   ELF Image Totals
-     48180       2972      16324         60          0          0   ROM Totals
+     48328       3046      14924         60      33644     516597   Grand Totals
+     48328       3046      14924         60      33644     516597   ELF Image Totals
+     48328       3046      14924         60          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                64504 (  62.99kB)
+    Total RO  Size (Code + RO Data)                63252 (  61.77kB)
     Total RW  Size (RW Data + ZI Data)             33704 (  32.91kB)
-    Total ROM Size (Code + RO Data + RW Data)      64564 (  63.05kB)
+    Total ROM Size (Code + RO Data + RW Data)      63312 (  61.83kB)
 
 ==============================================================================
 
